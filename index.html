@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A quick, focused onboarding to Sara's speech sound error detection problem.">
+  <title>Sara Speech Sound Model Onboarding</title>
+  <style>
+    :root {
+      --ink: #17211d;
+      --muted: #56635d;
+      --paper: #f7f5ef;
+      --surface: #ffffff;
+      --line: #d8ded9;
+      --green: #176c4e;
+      --green-soft: #e5f2eb;
+      --amber: #9b5b08;
+      --amber-soft: #fff1d6;
+      --blue: #245c88;
+      --shadow: 0 12px 32px rgba(23, 33, 29, 0.08);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 88% 4%, rgba(36, 92, 136, 0.12), transparent 30rem),
+        radial-gradient(circle at 4% 34%, rgba(23, 108, 78, 0.10), transparent 28rem),
+        var(--paper);
+      font: 16px/1.62 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    a { color: var(--blue); text-underline-offset: 3px; }
+    a:hover { text-decoration-thickness: 2px; }
+    a:focus-visible, button:focus-visible { outline: 3px solid #ffbf47; outline-offset: 3px; }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+    .wrap { width: min(1080px, calc(100% - 32px)); margin: 0 auto; }
+    .skip-link { position: absolute; left: -999px; top: 8px; }
+    .skip-link:focus { left: 12px; z-index: 10; background: white; padding: 8px 12px; border-radius: 8px; }
+
+    header { padding: 64px 0 30px; }
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 10px;
+      border: 1px solid #b9d2c5;
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+    h1 { max-width: 820px; margin: 18px 0 14px; font-size: clamp(2.35rem, 6vw, 4.75rem); line-height: 1.03; letter-spacing: -.045em; }
+    .lede { max-width: 720px; margin: 0; color: var(--muted); font-size: clamp(1.05rem, 2vw, 1.28rem); }
+    .quick-nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+    .quick-nav a, .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(255,255,255,.84);
+      color: var(--ink);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    .quick-nav a:hover, .button:hover { border-color: #9caaa2; background: white; }
+
+    main { padding: 12px 0 72px; }
+    section { scroll-margin-top: 24px; margin-top: 46px; }
+    h2 { margin: 0 0 18px; font-size: clamp(1.7rem, 3vw, 2.4rem); line-height: 1.15; letter-spacing: -.025em; }
+    h3 { margin: 0 0 8px; font-size: 1.08rem; }
+    p { margin: 0 0 14px; }
+    .muted { color: var(--muted); }
+
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(24px, 5vw, 44px);
+      border: 1px solid #b8d6c7;
+      border-radius: 26px;
+      background: linear-gradient(135deg, #ffffff 0%, var(--green-soft) 100%);
+      box-shadow: var(--shadow);
+    }
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      right: -80px;
+      bottom: -110px;
+      border: 34px solid rgba(23, 108, 78, .10);
+      border-radius: 50%;
+    }
+    .hero-card .question { max-width: 850px; font-size: clamp(1.35rem, 3vw, 2.15rem); line-height: 1.28; font-weight: 760; letter-spacing: -.02em; }
+    .scope { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .pill { padding: 6px 10px; border: 1px solid #bad3c7; border-radius: 999px; background: rgba(255,255,255,.72); font-size: .88rem; font-weight: 700; }
+
+    .flow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 22px; }
+    .step { position: relative; min-height: 132px; padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); box-shadow: 0 5px 18px rgba(23,33,29,.05); }
+    .step b { display: block; margin-bottom: 7px; color: var(--green); }
+    .step:not(:last-child)::after { content: "→"; position: absolute; right: -18px; top: 48px; z-index: 2; color: #819188; font-size: 1.5rem; font-weight: 800; }
+
+    .split { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .card { padding: 22px; border: 1px solid var(--line); border-radius: var(--radius); background: rgba(255,255,255,.88); }
+    .card.accent { border-color: #b8d6c7; background: var(--green-soft); }
+    .big-label { color: var(--green); font-weight: 850; font-size: 1.35rem; letter-spacing: -.015em; }
+
+    .labels { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .label-card { padding: 18px; border: 1px solid var(--line); border-radius: 15px; background: var(--surface); }
+    .label-card strong { display: block; margin-bottom: 6px; }
+    .label-card span { color: var(--muted); font-size: .93rem; }
+    .label-card .label-example {
+      display: block;
+      margin-top: 11px;
+      padding-top: 9px;
+      border-top: 1px solid var(--line);
+      color: var(--ink);
+      font-size: .86rem;
+    }
+    .label-card .label-example code { color: var(--green); font-weight: 850; }
+    .label-card .level-note {
+      display: inline-block;
+      margin: 0 0 8px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--amber-soft);
+      color: var(--amber);
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .ipa-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+    .ipa-item { padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+    .ipa-symbol { display: block; margin-bottom: 4px; color: var(--green); font: 850 1.35rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; }
+
+    .examples { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .sound-examples-grid { grid-template-columns: repeat(2, 1fr); }
+    .example { padding: 22px; border-radius: var(--radius); background: #17211d; color: white; }
+    .example .word { font-size: 1.6rem; font-weight: 850; }
+    .example .ipa { display: inline-block; margin: 10px 0; padding: 5px 8px; border-radius: 8px; background: rgba(255,255,255,.11); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .example small { color: #c9d3ce; }
+    .example audio { display: none; }
+    .play-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      width: 100%;
+      margin: 15px 0 12px;
+      padding: 11px 14px;
+      border: 1px solid rgba(255,255,255,.24);
+      border-radius: 12px;
+      background: #ffffff;
+      color: var(--ink);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .play-button:hover { background: #e8f5ee; border-color: #82d1ad; }
+    .play-button::before {
+      content: "▶";
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--green);
+      color: white;
+      font-size: .75rem;
+    }
+    .play-button[data-playing="true"]::before { content: "Ⅱ"; }
+
+    .challenge-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 18px 0 14px;
+      padding: 15px 17px;
+      border: 1px solid #b8d6c7;
+      border-radius: 15px;
+      background: var(--green-soft);
+    }
+    .challenge-progress { flex: 1; }
+    .challenge-status { display: block; margin-bottom: 7px; color: var(--green); font-weight: 850; }
+    .progress-track { overflow: hidden; height: 9px; border-radius: 999px; background: rgba(23,108,78,.16); }
+    .progress-fill { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--green); transition: width .35s ease; }
+    .reset-challenge {
+      padding: 9px 12px;
+      border: 1px solid #9fc7b4;
+      border-radius: 10px;
+      background: white;
+      color: var(--green);
+      font: inherit;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .reset-challenge:disabled { cursor: not-allowed; opacity: .5; }
+    .challenge-card { position: relative; transition: transform .2s ease, box-shadow .2s ease; }
+    .challenge-card:hover { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(23,33,29,.16); }
+    .challenge-card[data-complete="true"] { outline: 3px solid #71d2a4; outline-offset: 3px; }
+    .challenge-number { color: #9dd7bb; font-size: .76rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+    .target-sound { margin: 7px 0 0; color: #d8e3dd; }
+    .choice-label { margin: 13px 0 8px; color: #c9d3ce; font-size: .82rem; font-weight: 750; }
+    .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+    .choice-button {
+      padding: 9px 8px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 9px;
+      background: rgba(255,255,255,.08);
+      color: white;
+      font: inherit;
+      font-size: .86rem;
+      font-weight: 760;
+      cursor: pointer;
+    }
+    .choice-button:hover:not(:disabled) { border-color: #8edbb4; background: rgba(142,219,180,.15); }
+    .choice-button.is-wrong { border-color: #f0a58f; background: rgba(240,165,143,.14); }
+    .choice-button.is-correct { border-color: #8edbb4; background: #176c4e; }
+    .choice-button:disabled { cursor: default; opacity: .62; }
+    .choice-button.is-correct:disabled { opacity: 1; }
+    .challenge-feedback { min-height: 48px; margin: 12px 0 0; color: #f7e5ac; font-size: .88rem; }
+    .challenge-card[data-complete="true"] .challenge-feedback { color: #b8f0d2; }
+
+    .callout { margin-top: 18px; padding: 17px 19px; border-left: 5px solid var(--amber); border-radius: 8px 14px 14px 8px; background: var(--amber-soft); }
+    .checklist { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px 22px; padding: 0; list-style: none; }
+    .checklist li { position: relative; padding: 12px 12px 12px 42px; border-bottom: 1px solid var(--line); }
+    .checklist li::before { content: "✓"; position: absolute; left: 10px; top: 10px; color: var(--green); font-weight: 900; }
+
+    .materials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .resource { display: block; padding: 17px 18px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); color: var(--ink); text-decoration: none; }
+    .resource:hover { border-color: var(--green); transform: translateY(-1px); }
+    .resource strong { display: block; margin-bottom: 3px; }
+    .resource span { color: var(--muted); font-size: .9rem; }
+    .resource-tag {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: var(--green);
+      font-size: .7rem;
+      font-weight: 850;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .source-note { margin-top: 14px; color: var(--muted); font-size: .9rem; }
+
+    footer { padding: 28px 0 42px; border-top: 1px solid var(--line); color: var(--muted); font-size: .92rem; }
+
+    @media (max-width: 820px) {
+      .flow, .labels, .ipa-grid { grid-template-columns: 1fr 1fr; }
+      .step:not(:last-child)::after { display: none; }
+      .examples { grid-template-columns: 1fr; }
+      .sound-examples-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 580px) {
+      header { padding-top: 40px; }
+      .flow, .labels, .ipa-grid, .split, .checklist, .materials { grid-template-columns: 1fr; }
+      .challenge-top { align-items: stretch; flex-direction: column; }
+      .wrap { width: min(100% - 22px, 1080px); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .resource:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="wrap">
+    <span class="eyebrow">Quick onboarding · model team</span>
+    <h1>Get oriented to speech sound error detection.</h1>
+    <p class="lede">A focused introduction to Sara’s model problem: what the model judges, how the labels work, and where evaluation can go wrong.</p>
+    <nav class="quick-nav" aria-label="Page sections">
+      <a href="#task">Model task</a>
+      <a href="#ipa">IPA</a>
+      <a href="#labels">Labels</a>
+      <a href="#sound-examples">Sound examples</a>
+      <a href="#check">Checklist</a>
+      <a href="#learn-more">Learn more</a>
+      <a href="#materials">Materials</a>
+    </nav>
+  </header>
+
+  <main id="main" class="wrap">
+    <section id="task" class="hero-card" aria-labelledby="task-title">
+      <h2 id="task-title">Your model problem</h2>
+      <p class="question">Given audio of a known target speech sound, decide whether that sound was produced correctly.</p>
+      <div class="scope" aria-label="Scope">
+        <span class="pill">Input: sound audio</span>
+        <span class="pill">Known: target sound</span>
+        <span class="pill">Primary output: correct / incorrect</span>
+        <span class="pill">Secondary: substitution / distortion / rare addition</span>
+        <span class="pill">Scope: 23 supported sounds</span>
+      </div>
+    </section>
+
+    <section aria-labelledby="flow-title">
+      <h2 id="flow-title">From recording to prediction</h2>
+      <div class="flow">
+        <div class="step"><b>1 · Target</b>A known speech sound, such as /s/, /r/, or voiced “th.”</div>
+        <div class="step"><b>2 · Audio</b>A recording of that sound is provided to the model.</div>
+        <div class="step"><b>3 · Evaluate</b>The model compares the production with what is expected for the target sound.</div>
+        <div class="step"><b>4 · Decision</b>Correct or incorrect; optionally, the specific error type.</div>
+      </div>
+    </section>
+
+    <section aria-labelledby="distinction-title">
+      <h2 id="distinction-title">Start with the key distinction</h2>
+      <div class="split">
+        <article class="card">
+          <div class="big-label">Current task: sound level</div>
+          <p>The model receives audio of a target sound and determines whether that sound was produced correctly.</p>
+        </article>
+        <article class="card accent">
+          <div class="big-label">Previous work: word level</div>
+          <p>The generated word recordings are prior examples of error labels. They are context—not the current model input.</p>
+        </article>
+      </div>
+      <p class="callout"><strong>Keep the scopes separate:</strong> use the sound recordings to understand the active model problem. Use the word recordings below only to see how earlier work represented substitutions and omissions.</p>
+    </section>
+
+    <section id="ipa" aria-labelledby="ipa-title">
+      <h2 id="ipa-title">IPA, in 60 seconds</h2>
+      <div class="split">
+        <article class="card">
+          <h3>IPA is a sound alphabet</h3>
+          <p>Ordinary letters describe spelling. The International Phonetic Alphabet gives each speech sound a consistent symbol, so the team can discuss what was actually produced.</p>
+        </article>
+        <article class="card accent">
+          <h3>What the slashes mean</h3>
+          <p>A symbol between slashes—such as <strong>/s/</strong>—names the target sound category. You need to recognize the target symbols; you are not expected to transcribe recordings from scratch.</p>
+        </article>
+      </div>
+      <div class="ipa-grid" aria-label="Common IPA symbols in this project">
+        <div class="ipa-item"><span class="ipa-symbol">/ʃ/</span>“sh,” as in <em>shoe</em></div>
+        <div class="ipa-item"><span class="ipa-symbol">/tʃ/</span>“ch,” as in <em>chair</em></div>
+        <div class="ipa-item"><span class="ipa-symbol">/ð/</span>voiced “th,” as in <em>this</em></div>
+        <div class="ipa-item"><span class="ipa-symbol">/θ/</span>voiceless “th,” as in <em>think</em></div>
+        <div class="ipa-item"><span class="ipa-symbol">/ŋ/</span>“ng,” as in <em>sing</em></div>
+        <div class="ipa-item"><span class="ipa-symbol">/j/</span>“y,” as in <em>yes</em></div>
+      </div>
+      <p class="muted" style="margin-top:14px">IPA is about sound, not spelling: the IPA symbol /j/ represents the English “y” sound, not the letter J.</p>
+    </section>
+
+    <section id="labels" aria-labelledby="labels-title">
+      <h2 id="labels-title">Label vocabulary</h2>
+      <div class="labels">
+        <div class="label-card"><strong>Correct</strong><span>The target is acceptably produced in its intended location.</span><span class="label-example">Sound example: target <code>/s/</code> → heard <code>/s/</code></span></div>
+        <div class="label-card"><strong>Substitution</strong><span>Another recognizable sound replaces the target.</span><span class="label-example">Sound example: target <code>/s/</code> → heard <code>/θ/</code> (“th”)</span></div>
+        <div class="label-card"><strong>Omission</strong><span class="level-note">Word-level only</span><span>The target sound is absent from a word. This label does not apply to the active sound-level detection task.</span><span class="label-example">Word example: “base” <code>/beɪs/</code> → <code>/beɪ/</code></span></div>
+        <div class="label-card"><strong>Distortion</strong><span>The target is present but atypical; it does not cleanly become another phoneme.</span><span class="label-example">Sound example: target <code>/s/</code> → distorted /s/ that is still heard as “s”</span></div>
+        <div class="label-card"><strong>Addition</strong><span class="level-note">Rare at sound level</span><span>An extra sound is produced alongside the target. This can occur in sound-level detection, but it is very rare.</span><span class="label-example">Rare sound example: target <code>/s/</code> → heard <code>/sə/</code> with an added vowel</span></div>
+      </div>
+      <p class="callout"><strong>For the current sound-level task:</strong> the main labels are Correct, Substitution, and Distortion. Addition is possible but very rare. Omission appears only to help interpret the previous word-level materials.</p>
+    </section>
+
+    <section id="sound-examples" aria-labelledby="sound-examples-title">
+      <h2 id="sound-examples-title">Sound-level reference examples</h2>
+      <p class="muted">These clips were extracted from the reference videos. They demonstrate the kind of isolated sound audio used to understand the active model task.</p>
+      <div class="examples sound-examples-grid">
+        <article class="example">
+          <div class="word">/d/</div>
+          <div class="ipa">voiced alveolar stop</div>
+          <p>The tongue briefly contacts the ridge behind the upper teeth, with vocal-fold vibration.</p>
+          <button class="play-button" type="button" data-audio="d-reference-audio" aria-controls="d-reference-audio" aria-pressed="false">Play /d/ sound</button>
+          <audio id="d-reference-audio" preload="metadata">
+            <source src="audio/d-reference.mp3" type="audio/mpeg">
+            Your browser does not support embedded audio.
+          </audio>
+          <small>Audio extracted from the /d/ reference video.</small>
+        </article>
+        <article class="example">
+          <div class="word">/p/</div>
+          <div class="ipa">voiceless bilabial stop</div>
+          <p>Both lips briefly close and release, without vocal-fold vibration.</p>
+          <button class="play-button" type="button" data-audio="p-reference-audio" aria-controls="p-reference-audio" aria-pressed="false">Play /p/ sound</button>
+          <audio id="p-reference-audio" preload="metadata">
+            <source src="audio/p-reference.mp3" type="audio/mpeg">
+            Your browser does not support embedded audio.
+          </audio>
+          <small>Audio extracted from the /p/ reference video.</small>
+        </article>
+      </div>
+    </section>
+
+    <section id="examples" aria-labelledby="examples-title">
+      <h2 id="examples-title">Listening challenge: spot the word-level error</h2>
+      <p class="muted">Play each previous-work recording, choose the error pattern you hear, and get immediate feedback. These are not examples of the current sound-level model input.</p>
+      <div class="challenge-top">
+        <div class="challenge-progress">
+          <span class="challenge-status" id="challenge-status">0 of 3 solved</span>
+          <div class="progress-track" id="challenge-progress" role="progressbar" aria-label="Listening challenge progress" aria-valuemin="0" aria-valuemax="3" aria-valuenow="0"><span class="progress-fill"></span></div>
+        </div>
+        <button class="reset-challenge" id="reset-challenge" type="button" disabled>Reset challenge</button>
+      </div>
+      <div class="examples">
+        <article class="example challenge-card" data-answer="substitution" data-explanation="Substitution: the target /r/ is heard as /l/, producing /laʊnd/." data-complete="false">
+          <div class="challenge-number">Challenge 1</div>
+          <div class="word">round</div>
+          <p class="target-sound">Target sound: <strong>/r/</strong> in the initial position</p>
+          <button class="play-button" type="button" data-audio="round-audio" aria-controls="round-audio" aria-pressed="false">Play sound</button>
+          <audio id="round-audio" preload="metadata">
+            <source src="audio/round.mp3" type="audio/mpeg">
+            Your browser does not support embedded audio.
+          </audio>
+          <div class="choice-label">What happened?</div>
+          <div class="choice-grid" role="group" aria-label="Choose the error pattern for round">
+            <button class="choice-button" type="button" data-choice="correct">Correct</button><button class="choice-button" type="button" data-choice="substitution">Substitution</button><button class="choice-button" type="button" data-choice="omission">Omission</button><button class="choice-button" type="button" data-choice="distortion">Distortion</button>
+          </div>
+          <p class="challenge-feedback" aria-live="polite">Listen first, then choose a label.</p>
+        </article>
+        <article class="example challenge-card" data-answer="omission" data-explanation="Omission: the final /s/ is absent, so “base” is heard as /beɪ/." data-complete="false">
+          <div class="challenge-number">Challenge 2</div>
+          <div class="word">base</div>
+          <p class="target-sound">Target sound: <strong>/s/</strong> in the final position</p>
+          <button class="play-button" type="button" data-audio="base-audio" aria-controls="base-audio" aria-pressed="false">Play sound</button>
+          <audio id="base-audio" preload="metadata">
+            <source src="audio/base.mp3" type="audio/mpeg">
+            Your browser does not support embedded audio.
+          </audio>
+          <div class="choice-label">What happened?</div>
+          <div class="choice-grid" role="group" aria-label="Choose the error pattern for base">
+            <button class="choice-button" type="button" data-choice="correct">Correct</button><button class="choice-button" type="button" data-choice="substitution">Substitution</button><button class="choice-button" type="button" data-choice="omission">Omission</button><button class="choice-button" type="button" data-choice="distortion">Distortion</button>
+          </div>
+          <p class="challenge-feedback" aria-live="polite">Listen first, then choose a label.</p>
+        </article>
+        <article class="example challenge-card" data-answer="substitution" data-explanation="Substitution: initial /s/ is heard as voiced “th” /ð/, producing /ðɪks/." data-complete="false">
+          <div class="challenge-number">Challenge 3</div>
+          <div class="word">six</div>
+          <p class="target-sound">Target sound: <strong>/s/</strong> in the initial position</p>
+          <button class="play-button" type="button" data-audio="six-audio" aria-controls="six-audio" aria-pressed="false">Play sound</button>
+          <audio id="six-audio" preload="metadata">
+            <source src="audio/six.mp3" type="audio/mpeg">
+            Your browser does not support embedded audio.
+          </audio>
+          <div class="choice-label">What happened?</div>
+          <div class="choice-grid" role="group" aria-label="Choose the error pattern for six">
+            <button class="choice-button" type="button" data-choice="correct">Correct</button><button class="choice-button" type="button" data-choice="substitution">Substitution</button><button class="choice-button" type="button" data-choice="omission">Omission</button><button class="choice-button" type="button" data-choice="distortion">Distortion</button>
+          </div>
+          <p class="challenge-feedback" aria-live="polite">Listen first, then choose a label.</p>
+        </article>
+      </div>
+      <p class="callout"><strong>Important:</strong> These illustrate the prior synthetic word-label structure. An intended synthetic error is not automatically a clinically realistic or SLP-approved example.</p>
+    </section>
+
+    <section aria-labelledby="failure-title">
+      <h2 id="failure-title">Where labels and models go wrong</h2>
+      <div class="split">
+        <div class="card">
+          <h3>Signal quality</h3>
+          <p>Noise, echo, clipping, inconsistent duration, or voice artifacts can be mistaken for incorrect sound production.</p>
+        </div>
+        <div class="card">
+          <h3>Sound identity</h3>
+          <p>The model may confuse acoustically similar sounds, including voiced and voiceless pairs or sounds with nearby places of articulation.</p>
+        </div>
+        <div class="card">
+          <h3>Label boundaries</h3>
+          <p>An ambiguous production may be forced into a substitution label when the audio supports only distortion or uncertainty.</p>
+        </div>
+        <div class="card">
+          <h3>Evaluation</h3>
+          <p>One overall score can hide weak sounds. False positives—marking an incorrect production correct—are especially damaging to SLP trust.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="check" aria-labelledby="check-title">
+      <h2 id="check-title">Checklist for every example</h2>
+      <ul class="checklist">
+        <li>What is the target sound?</li>
+        <li>What should a correct production sound like?</li>
+        <li>What do you actually hear?</li>
+        <li>Was the target sound produced correctly?</li>
+        <li>Which error label best fits?</li>
+        <li>Is the recording technically usable?</li>
+        <li>Could a synthetic artifact be driving the decision?</li>
+        <li>Has an SLP approved the perceived label?</li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="boundaries-title">
+      <h2 id="boundaries-title">What the model is—and isn’t</h2>
+      <div class="card">
+        <p><strong>The model supports an SLP; it does not diagnose or replace clinical judgment.</strong></p>
+        <p>Synthetic adult speech is model-development material, not proof that an error represents a child’s speech. Dialect and multilingual differences must not automatically be labeled as disorders.</p>
+        <p>The SLP-reviewed <em>perceived production</em> is the gold label—not the filename or intended generation prompt.</p>
+      </div>
+    </section>
+
+    <section id="learn-more" aria-labelledby="learn-more-title">
+      <h2 id="learn-more-title">Learn more about speech sound problems</h2>
+      <p class="muted">Optional reading for anyone who wants more domain context. Start with the first ASHA guide; use the others when a term or error pattern needs clarification.</p>
+      <div class="split" style="margin:18px 0">
+        <article class="card">
+          <h3>Articulation: producing a sound</h3>
+          <p>This is the physical production of an individual speech sound—how the lips, tongue, airflow, and voice work together. A distorted /s/ is a sound-level articulation example.</p>
+        </article>
+        <article class="card accent">
+          <h3>Phonology: organizing a sound system</h3>
+          <p>This concerns rule-like patterns across sounds, word positions, or syllable shapes—for example, consistently replacing back sounds with front sounds. These patterns are usually evaluated across words and connected speech.</p>
+        </article>
+      </div>
+      <p class="callout"><strong>Connection to this project:</strong> the model observes a narrow slice—audio of one known target sound. It can estimate whether that production is correct, but it cannot by itself diagnose a speech sound disorder or establish a word-level phonological pattern.</p>
+      <div class="materials" style="margin-top:18px">
+        <a class="resource" href="https://www.asha.org/practice-portal/clinical-topics/articulation-and-phonology/" target="_blank" rel="noopener"><span class="resource-tag">Start here · ASHA</span><strong>Speech Sound Disorders: Articulation and Phonology</strong><span>Clinical overview of definitions, error types, assessment, multilingual considerations, and treatment.</span></a>
+        <a class="resource" href="https://www.asha.org/practice-portal/clinical-topics/articulation-and-phonology/selected-phonological-patterns/" target="_blank" rel="noopener"><span class="resource-tag">Error patterns · ASHA</span><strong>Selected Phonological Patterns</strong><span>Examples of common rule-like patterns such as fronting, stopping, and cluster reduction.</span></a>
+        <a class="resource" href="https://www.asha.org/public/early-identification-of-speech-language-and-hearing-disorders/" target="_blank" rel="noopener"><span class="resource-tag">Plain-language · ASHA</span><strong>Early Identification of Communication Disorders</strong><span>An accessible introduction to signs of speech sound, language, fluency, voice, and hearing problems.</span></a>
+        <a class="resource" href="https://www.rcslt.org/speech-and-language-therapy/clinical-information/speech-sound-disorders/" target="_blank" rel="noopener"><span class="resource-tag">Overview · RCSLT</span><strong>Speech Sound Disorders Overview</strong><span>A concise second perspective on articulation, phonological, and motor-speech difficulties.</span></a>
+        <a class="resource" href="https://www.internationalphoneticassociation.org/IPAcharts/IPA_charts_TI/IPA_charts_TI.html" target="_blank" rel="noopener"><span class="resource-tag">Hear the IPA</span><strong>Interactive IPA Chart</strong><span>Explore official IPA symbols and listen to reference productions of speech sounds.</span></a>
+        <a class="resource" href="https://iastate.pressbooks.pub/oralcommunication/chapter/consonants/" target="_blank" rel="noopener"><span class="resource-tag">Sound mechanics</span><strong>Voicing, Place, and Manner</strong><span>An open textbook explanation of the three main dimensions used to describe English consonants.</span></a>
+      </div>
+      <p class="source-note">These resources provide background, not labels for this dataset. Project labels still require the agreed task definition and SLP review.</p>
+    </section>
+
+    <section id="materials" aria-labelledby="materials-title">
+      <h2 id="materials-title">Materials</h2>
+      <div class="materials">
+        <a class="resource" href="https://docs.google.com/document/d/1ehTlneNd9ja7_t0eDRmLQvckKxzaDW77L550ItttSZs/edit" target="_blank" rel="noopener"><strong>Project plan</strong><span>Scope, milestones, metrics, and workstreams ↗</span></a>
+        <a class="resource" href="https://drive.google.com/drive/folders/1TF66nVkb-TSpyc2x1gUCGQh3Wy6GsrUs" target="_blank" rel="noopener"><strong>Generated word audio</strong><span>Synthetic word-level examples ↗</span></a>
+        <a class="resource" href="https://docs.google.com/spreadsheets/d/1tBpNEb_CPSqO4AhuGTHw-O9xmzKykVQx-UJ9utaD_6Y/edit" target="_blank" rel="noopener"><strong>Word-level labels</strong><span>Target, generated IPA, error type, and notes ↗</span></a>
+        <a class="resource" href="https://drive.google.com/drive/folders/14oVEh5CocGX2nAyWq5RqCmIpNcXhanvO" target="_blank" rel="noopener"><strong>Reference sound videos</strong><span>Sound-level production references ↗</span></a>
+        <a class="resource" href="https://docs.google.com/spreadsheets/d/1skctQbI8_hpvgsmod60jOUwOkQhFzLTkNsm1ICCIFTQ/edit" target="_blank" rel="noopener"><strong>Sound-audio QA</strong><span>Review status and recording-quality notes ↗</span></a>
+        <a class="resource" href="https://drive.google.com/file/d/1-PDvhP-dU6s9CmTWNaRYgLGs4QXoCFje/view" target="_blank" rel="noopener"><strong>Technical onboarding</strong><span>Access, environment, security, and compute ↗</span></a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap">Sara Technology × Columbia MSDS · Quick model onboarding · For model-development use</div>
+  </footer>
+  <script>
+    const playButtons = [...document.querySelectorAll(".play-button")];
+
+    function resetPlayer(button, audio) {
+      button.dataset.playing = "false";
+      button.setAttribute("aria-pressed", "false");
+      button.textContent = button.dataset.playLabel;
+      if (audio.ended) audio.currentTime = 0;
+    }
+
+    playButtons.forEach((button) => {
+      const audio = document.getElementById(button.dataset.audio);
+      button.dataset.playLabel = button.textContent;
+
+      button.addEventListener("click", async () => {
+        if (!audio.paused) {
+          audio.pause();
+          resetPlayer(button, audio);
+          return;
+        }
+
+        playButtons.forEach((otherButton) => {
+          const otherAudio = document.getElementById(otherButton.dataset.audio);
+          if (otherAudio !== audio) {
+            otherAudio.pause();
+            otherAudio.currentTime = 0;
+            resetPlayer(otherButton, otherAudio);
+          }
+        });
+
+        try {
+          await audio.play();
+          button.dataset.playing = "true";
+          button.setAttribute("aria-pressed", "true");
+          button.textContent = "Pause sound";
+        } catch {
+          button.textContent = "Unable to play — try again";
+        }
+      });
+
+      audio.addEventListener("ended", () => resetPlayer(button, audio));
+      audio.addEventListener("error", () => {
+        button.dataset.playing = "false";
+        button.textContent = "Audio unavailable";
+        button.disabled = true;
+      });
+    });
+
+    const challengeCards = [...document.querySelectorAll(".challenge-card")];
+    const challengeStatus = document.getElementById("challenge-status");
+    const challengeProgress = document.getElementById("challenge-progress");
+    const progressFill = challengeProgress.querySelector(".progress-fill");
+    const resetChallenge = document.getElementById("reset-challenge");
+
+    function updateChallengeProgress() {
+      const solved = challengeCards.filter((card) => card.dataset.complete === "true").length;
+      challengeStatus.textContent = solved === challengeCards.length
+        ? `${solved} of ${challengeCards.length} solved — nice listening!`
+        : `${solved} of ${challengeCards.length} solved`;
+      challengeProgress.setAttribute("aria-valuenow", solved);
+      progressFill.style.width = `${(solved / challengeCards.length) * 100}%`;
+      resetChallenge.disabled = solved === 0 && !document.querySelector(".choice-button.is-wrong");
+    }
+
+    challengeCards.forEach((card) => {
+      const choices = [...card.querySelectorAll(".choice-button")];
+      const feedback = card.querySelector(".challenge-feedback");
+
+      choices.forEach((choice) => {
+        choice.addEventListener("click", () => {
+          if (card.dataset.complete === "true") return;
+          resetChallenge.disabled = false;
+
+          if (choice.dataset.choice === card.dataset.answer) {
+            card.dataset.complete = "true";
+            choice.classList.add("is-correct");
+            choices.forEach((button) => { button.disabled = true; });
+            feedback.textContent = `✓ ${card.dataset.explanation}`;
+            updateChallengeProgress();
+          } else {
+            choice.classList.add("is-wrong");
+            choice.disabled = true;
+            feedback.textContent = "Not quite—replay the clip and compare the target with what you hear.";
+          }
+        });
+      });
+    });
+
+    resetChallenge.addEventListener("click", () => {
+      challengeCards.forEach((card) => {
+        card.dataset.complete = "false";
+        card.querySelector(".challenge-feedback").textContent = "Listen first, then choose a label.";
+        card.querySelectorAll(".choice-button").forEach((choice) => {
+          choice.disabled = false;
+          choice.classList.remove("is-correct", "is-wrong");
+        });
+      });
+      updateChallengeProgress();
+    });
+  </script>
+</body>
+</html>
