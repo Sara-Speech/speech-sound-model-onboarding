@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A proposed 2–3 minute adaptive articulation screen for parents, shared for review by speech-language pathologists.">
+  <title>Quick Sound Check · SLP Review</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Charis+SIL:wght@400;700&display=swap">
+  <style>
+    /* Matches the onboarding site: warm paper, green / amber / blue, system sans. One reading column with a contents rail on wide screens. */
+    :root {
+      --ink: #17211d;
+      --muted: #56635d;
+      --paper: #f7f5ef;
+      --surface: #ffffff;
+      --sunk: #eeece5;
+      --line: #d8ded9;
+      --green: #176c4e;
+      --green-soft: #e5f2eb;
+      --amber: #9b5b08;
+      --amber-soft: #fff1d6;
+      --red: #b2392a;
+      --red-soft: #fbe4df;
+      --blue: #245c88;
+      --blue-soft: #e4eef6;
+      --card: #ffcf5c;
+      --card-ink: #3a2a00;
+      --skip: #85908a;
+      --shadow: 0 12px 32px rgba(23, 33, 29, 0.08);
+      --sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --ipa: "Charis SIL", "Doulos SIL", "Gentium Plus", "Times New Roman", serif;
+      color-scheme: light;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.62 var(--sans); }
+    a { color: var(--blue); text-underline-offset: 3px; }
+    a:focus-visible, button:focus-visible, select:focus-visible, textarea:focus-visible, input:focus-visible { outline: 3px solid #ffbf47; outline-offset: 3px; }
+    .skip-link { position: absolute; left: -999px; top: 8px; }
+    .skip-link:focus { left: 12px; z-index: 10; background: white; padding: 8px 12px; border-radius: 8px; }
+    .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 20px; padding-block: 48px 80px; display: grid; grid-template-columns: 196px minmax(0, 1fr); gap: 48px; }
+    @media (max-width: 900px) { .wrap { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-inline: 16px; padding-block: 32px 64px; } nav.toc { display: none; } }
+    nav.toc { position: sticky; top: 24px; align-self: start; font-size: 14px; }
+    nav.toc p { font-weight: 800; margin: 0 0 8px; letter-spacing: .08em; text-transform: uppercase; font-size: 12px; color: var(--muted); }
+    nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+    nav.toc a { color: var(--muted); text-decoration: none; display: block; padding: 3px 8px; border-radius: 6px; }
+    nav.toc a:hover { color: var(--ink); background: var(--sunk); }
+    main { min-width: 0; }
+    h1, h2, h3 { text-wrap: balance; line-height: 1.15; margin: 0; }
+    h1 { font-size: clamp(2.2rem, 5.5vw, 3.6rem); letter-spacing: -.04em; margin: 16px 0 12px; }
+    h2 { font-size: 1.75rem; letter-spacing: -.02em; margin-bottom: 14px; }
+    h3 { font-size: 1.1rem; margin: 22px 0 8px; }
+    section { padding-block: 36px; border-top: 1px solid var(--line); }
+    section:first-of-type { border-top: 0; padding-top: 0; }
+    p, li { max-width: 70ch; }
+    .eyebrow { display: inline-flex; padding: 6px 10px; border: 1px solid #b9d2c5; border-radius: 999px; background: rgba(255,255,255,.72); color: var(--green); font-size: .78rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .lede { font-size: 1.2rem; color: var(--muted); margin: 0; }
+    .meta { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14px; color: var(--muted); margin-top: 14px; }
+    .ipa { font-family: var(--ipa); font-size: 1.05em; }
+    .fine { font-size: 13px; color: var(--muted); }
+    .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 24px; }
+    .fact { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; }
+    .fact b { display: block; font-size: 1.6rem; line-height: 1.1; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+    .fact span { font-size: 14px; color: var(--muted); }
+    .callout { background: var(--green-soft); border-radius: 14px; padding: 14px 18px; margin: 20px 0 0; max-width: 76ch; }
+    .callout p { margin: 0; }
+    .ask { background: var(--amber-soft); border-radius: 12px; padding: 10px 14px; margin: 16px 0 0; font-size: 15px; max-width: 76ch; }
+    .ask b { color: var(--amber); }
+    table { border-collapse: collapse; width: 100%; font-size: 14.5px; }
+    th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); }
+    .scroll { overflow-x: auto; }
+    .cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 16px; }
+    .panel { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; min-width: 0; }
+    .panel h3 { margin-top: 0; }
+    .panel ul { padding-left: 18px; margin: 8px 0 0; }
+    .panel li { margin-bottom: 6px; }
+    .steps { counter-reset: s; list-style: none; padding: 0; display: grid; gap: 14px; margin: 18px 0 0; }
+    .steps > li { counter-increment: s; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; max-width: none; }
+    .steps > li::before { content: counter(s); font-weight: 800; font-size: 17px; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: var(--green); color: #fff; }
+    .steps h3 { margin: 5px 0 4px; }
+    .steps p { margin: 0 0 6px; }
+
+    /* Flow diagram */
+    .flow { display: grid; gap: 10px; margin-top: 18px; max-width: 760px; }
+    .fbox { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; font-size: 14.5px; }
+    .fbox b { display: block; }
+    .fbox.q { background: var(--blue-soft); border-color: transparent; }
+    .fbox.end { background: var(--green-soft); border-color: transparent; }
+    .frow { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 10px; }
+    .arrow { text-align: center; color: var(--muted); font-size: 13px; line-height: 1; }
+
+    .ages { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); margin-top: 16px; }
+    .ages > div { padding: 12px; border-right: 1px solid var(--line); min-width: 0; }
+    .ages > div:last-child { border-right: 0; }
+    .ages h4 { margin: 0 0 8px; font-size: 15px; }
+    .ages .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    @media (max-width: 640px) { .ages { grid-template-columns: minmax(0, 1fr); } .ages > div { border-right: 0; border-bottom: 1px solid var(--line); } }
+    .chip { font-size: 13px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: var(--sunk); white-space: nowrap; }
+
+    .wordbank { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0; }
+    .wbtn { font: inherit; font-size: 14px; padding: 4px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+    .wbtn:hover { border-color: var(--blue); }
+    .wbtn.on { background: var(--card); color: var(--card-ink); border-color: var(--card); }
+    .wbtn.dim { opacity: .35; }
+    table.matrix { width: auto; min-width: 520px; }
+    table.matrix td, table.matrix th { padding: 4px 6px; border-bottom: 0; text-align: center; }
+    table.matrix th:first-child, table.matrix td:first-child { text-align: left; white-space: nowrap; }
+    .cell { display: inline-grid; place-items: center; width: 64px; height: 30px; border-radius: 6px; border: 1px solid var(--line); background: var(--surface); font: inherit; font-size: 13px; font-weight: 700; color: var(--ink); cursor: pointer; font-variant-numeric: tabular-nums; }
+    .cell.n0 { background: transparent; border-style: dashed; color: var(--skip); cursor: default; font-weight: 400; }
+    .cell.na { background: transparent; border-color: transparent; color: var(--skip); cursor: default; font-weight: 400; }
+    .cell.c1 { background: var(--blue-soft); }
+    .cell.c2 { background: #b9d0e4; }
+    .cell.c3 { background: var(--blue); color: #fff; }
+    .cell.hl { outline: 3px solid var(--card); outline-offset: -1px; }
+    .legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--muted); margin-top: 10px; }
+    .legend i { display: inline-block; width: 14px; height: 14px; border-radius: 4px; vertical-align: -2px; margin-right: 5px; border: 1px solid var(--line); }
+    table.words td:first-child { font-weight: 700; white-space: nowrap; }
+    .tgt { display: inline-block; font-size: 12.5px; padding: 1px 7px; border-radius: 6px; background: var(--sunk); margin: 1px 3px 1px 0; white-space: nowrap; }
+    details.more { margin-top: 14px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 14px; }
+    details.more summary { cursor: pointer; font-weight: 700; }
+
+    .poc { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; margin-top: 18px; box-shadow: var(--shadow); }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px 16px; align-items: end; }
+    .controls label { display: grid; gap: 4px; font-size: 13px; color: var(--muted); font-weight: 700; }
+    select { font: inherit; font-size: 15px; padding: 7px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); max-width: 100%; }
+    .check { display: flex !important; align-items: center; gap: 8px !important; font-weight: 400 !important; color: var(--ink) !important; font-size: 14px !important; padding-bottom: 8px; }
+    button.btn { font: inherit; font-weight: 700; font-size: 15px; padding: 8px 16px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); cursor: pointer; }
+    button.btn.primary { background: var(--green); border-color: var(--green); color: #fff; }
+    button.btn:disabled { opacity: .45; cursor: not-allowed; }
+    .persona-note { font-size: 14px; color: var(--muted); margin: 12px 0 0; }
+    .stage { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 20px; margin-top: 20px; }
+    @media (max-width: 760px) { .stage { grid-template-columns: minmax(0, 1fr); } }
+    .roundbar { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+    .roundbar span { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--sunk); color: var(--muted); }
+    .roundbar span.on { background: var(--ink); color: var(--paper); }
+    .roundbar span.done { background: var(--green-soft); color: var(--green); }
+    .flash { background: var(--card); color: var(--card-ink); border-radius: 18px; padding: 26px 20px 20px; text-align: center; min-height: 230px; display: grid; align-content: center; gap: 6px; }
+    .flash .prompt { font-size: 14px; opacity: .8; }
+    .flash .word { font-size: clamp(38px, 7vw, 54px); font-weight: 800; letter-spacing: -.03em; line-height: 1; }
+    .flash .ipa { font-size: 20px; }
+    .flash .pic { font-size: 12px; opacity: .7; text-transform: uppercase; letter-spacing: .08em; }
+    .targets { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .tchip { font: inherit; font-size: 14px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--green-soft); color: var(--green); font-weight: 700; cursor: default; text-align: left; }
+    .tchip.err { background: var(--red-soft); color: var(--red); }
+    .tchip.noise { background: var(--amber-soft); color: var(--amber); }
+    .tchip.manual { cursor: pointer; }
+    .tchip small { display: block; font-weight: 400; font-size: 12px; color: var(--muted); }
+    .stagebtns { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .log { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; max-height: 420px; overflow: auto; font-size: 14px; }
+    .log h4 { margin: 0 0 6px; font-size: 15px; display: flex; justify-content: space-between; gap: 8px; }
+    .log ol { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 4px; }
+    .log li { display: grid; grid-template-columns: 26px minmax(0, 1fr); gap: 6px; }
+    .log .r { font-size: 11px; font-weight: 700; color: var(--muted); padding-top: 2px; }
+    .log .bad { color: var(--red); font-weight: 700; }
+    .log .sep { grid-column: 1 / -1; font-size: 12px; font-weight: 800; color: var(--blue); text-transform: uppercase; letter-spacing: .06em; margin-top: 8px; }
+    .timer { font-variant-numeric: tabular-nums; color: var(--muted); font-weight: 400; font-size: 13px; }
+    .empty { color: var(--muted); font-size: 14px; }
+
+    .report { margin-top: 22px; border-top: 1px dashed var(--line); padding-top: 20px; }
+    .tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+    .tabs button { font: inherit; font-size: 14px; font-weight: 700; padding: 6px 12px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--muted); cursor: pointer; }
+    .tabs button.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+    .phone { max-width: 420px; margin: 0 auto; background: var(--paper); border: 1px solid var(--line); border-radius: 26px; padding: 22px 18px; display: grid; gap: 12px; }
+    .phone h3 { margin: 0; font-size: 22px; }
+    .phone .sub { font-size: 14px; color: var(--muted); margin: 0; }
+    .scard { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 14px; display: grid; gap: 8px; border-left-width: 5px; }
+    .scard.practice { border-left-color: var(--red); }
+    .scard.developing { border-left-color: var(--amber); }
+    .scard header { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+    .scard header b { font-size: 20px; }
+    .pill { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; white-space: nowrap; }
+    .pill.practice { background: var(--red-soft); color: var(--red); }
+    .pill.developing { background: var(--amber-soft); color: var(--amber); }
+    .pill.ok { background: var(--green-soft); color: var(--green); }
+    .dots { display: flex; flex-wrap: wrap; gap: 6px; }
+    .dot { font-size: 12px; padding: 2px 8px; border-radius: 6px; border: 1px solid var(--line); color: var(--muted); }
+    .dot.ok { background: var(--green-soft); color: var(--green); border-color: transparent; }
+    .dot.error { background: var(--red-soft); color: var(--red); border-color: transparent; font-weight: 700; }
+    .dot.skip { border-style: dashed; }
+    .scard p { margin: 0; font-size: 14.5px; }
+    .scard .start { font-size: 13px; background: var(--sunk); border-radius: 8px; padding: 6px 10px; }
+    .oklist { display: flex; flex-wrap: wrap; gap: 6px; }
+    .referral { background: var(--blue-soft); border-radius: 12px; padding: 12px 14px; font-size: 14.5px; }
+    .referral b { display: block; }
+    .patterns { display: grid; gap: 6px; }
+    .patterns div { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; font-size: 14px; }
+    .patterns small { color: var(--muted); }
+    table.team td.s-error { color: var(--red); font-weight: 700; }
+    table.team td.s-slip { color: var(--amber); }
+    table.team td.s-ok { color: var(--green); }
+    table.team td.s-skip, table.team td.s-none { color: var(--skip); }
+
+    .qs { counter-reset: q; list-style: none; padding: 0; margin: 18px 0 0; display: grid; gap: 14px; }
+    .qs li { counter-increment: q; max-width: 80ch; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+    .qs label { display: block; font-weight: 700; margin-bottom: 6px; }
+    .qs label::before { content: "Q" counter(q) ". "; color: var(--green); }
+    .qs .hint { display: block; font-weight: 400; font-size: 13.5px; color: var(--muted); margin-top: 2px; }
+    .qs textarea { width: 100%; min-height: 64px; font: inherit; font-size: 15px; padding: 8px 10px; border-radius: 8px; border: 1px solid var(--line); background: var(--paper); color: var(--ink); resize: vertical; }
+    .copyrow { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 16px; }
+    #copyStatus { font-size: 14px; color: var(--green); }
+    #copyOut { width: 100%; min-height: 120px; margin-top: 10px; font: 13px/1.5 ui-monospace, SFMono-Regular, Menlo, monospace; padding: 10px; border-radius: 8px; border: 1px solid var(--line); }
+    .refs li { margin-bottom: 8px; font-size: 15px; }
+    footer { border-top: 1px solid var(--line); padding: 22px 20px 40px; text-align: center; font-size: 13px; color: var(--muted); }
+    @media (prefers-reduced-motion: no-preference) { .flash { transition: transform .15s ease; } .flash.bump { transform: scale(.98); } }
+  </style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="wrap">
+  <nav class="toc" aria-label="Contents">
+    <p>Contents</p>
+    <ol>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#why">Why a quick screen</a></li>
+      <li><a href="#basis">Clinical basis</a></li>
+      <li><a href="#procedure">Procedure</a></li>
+      <li><a href="#scoring">Scoring rules</a></li>
+      <li><a href="#words">Word lists</a></li>
+      <li><a href="#demo">Try the flow</a></li>
+      <li><a href="#report">Parent report</a></li>
+      <li><a href="#limits">Limits</a></li>
+      <li><a href="#validate">Validation</a></li>
+      <li><a href="#review">Your review</a></li>
+      <li><a href="#refs">References</a></li>
+    </ol>
+  </nav>
+
+  <main id="main">
+    <section id="summary">
+      <span class="eyebrow">Proposal for SLP review</span>
+      <h1>Quick Sound Check</h1>
+      <p class="lede">A proposed 2–3 minute picture-naming screen that parents run at home. It aims to show which consonants a child has difficulty with, in which word positions, and at which level (singleton, cluster, vocalic /r/). It points parents to practice and, when warranted, to an SLP.</p>
+      <div class="meta"><span>Sara Speech</span><span>Draft, October 2026</span><span><a href="index.html">← Back to onboarding</a></span></div>
+      <div class="facts">
+        <div class="fact"><b>23</b><span>English consonants screened</span></div>
+        <div class="fact"><b>30</b><span>picture words in Round 1</span></div>
+        <div class="fact"><b>~2 min</b><span>when no errors are found</span></div>
+        <div class="fact"><b>&lt;3 min</b><span>typical with 1–2 error sounds</span></div>
+      </div>
+      <div class="callout"><p><b>What we are asking you.</b> We would like an SLP's view on whether this procedure is clinically sound as a <em>screen</em>: the word list, the decision rules, the age expectations and the wording parents see. Questions are marked in amber throughout the page and collected in <a href="#review">Your review</a>, where you can type answers and copy them into an email.</p></div>
+    </section>
+
+    <section id="why">
+      <h2>Why a quick screen</h2>
+      <p>Parents often notice that their child's speech "sounds off" but don't know which sound is involved, whether it is typical for the child's age, or where to start. A full articulation assessment answers these questions but is usually 15–25 minutes or more, and access often involves a waitlist.</p>
+      <p>Sara's app already offers home practice organized the way SLPs structure treatment: target sound → word position (initial, medial, final) → clusters, and vocalic /r/ for R. What is missing is a short entry point that places a child at a sensible starting level.</p>
+      <h3>Design goals</h3>
+      <ul>
+        <li>Screen all 23 consonants, then narrow to word position, then to clusters and vocalic /r/ where relevant.</li>
+        <li>Keep child time to 2–3 minutes.</li>
+        <li>Interpret errors against developmental norms, so typical developmental errors are not presented as problems.</li>
+        <li>Report to parents in plain language with examples, and suggest an SLP evaluation when findings warrant one.</li>
+        <li>Remain a screen. It does not diagnose, rate severity, or replace an evaluation.</li>
+      </ul>
+    </section>
+
+    <section id="basis">
+      <h2>Clinical basis</h2>
+      <p>The procedure follows standard articulation testing practice, made shorter by targeting several sounds per word and adding probe items only where needed.</p>
+      <div class="scroll">
+      <table>
+        <thead><tr><th>Established practice</th><th>How it is used here</th></tr></thead>
+        <tbody>
+          <tr><td><b>Single-word picture naming.</b> GFTA-3 Sounds-in-Words uses 60 picture items to sample consonants and clusters in initial, medial and final positions (about 5–15 min).</td><td>Picture naming is the elicitation method. Imitation is allowed as a fallback and is recorded as imitated.</td></tr>
+          <tr><td><b>Screen, then probe.</b> Screeners (5–10 min) answer "is there likely a problem?" Focused probes with more productions follow for sounds of concern.</td><td>Round 1 screens. Rounds 2 and 3 are short automatic probes, given only for positions with errors.</td></tr>
+          <tr><td><b>Developmental norms.</b> Crowe &amp; McLeod (2020) report the age by which 90% of US children produce each consonant correctly (15 studies, 18,907 children).</td><td>Errors are labeled "still developing" or "practice recommended" based on the child's age.</td></tr>
+          <tr><td><b>Phonological pattern analysis.</b> Gliding, velar fronting, stopping, cluster reduction, final consonant deletion.</td><td>Patterns are detected from the substitutions and shown to parents in everyday words, with the clinical term alongside.</td></tr>
+          <tr><td><b>Single words and connected speech.</b> ASHA recommends both. Single-word samples separate children with SSD from typically developing children well, but can overestimate accuracy compared with conversation.</td><td>Single words only, for speed. A connected-speech task is a possible later addition.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <h3>Age expectations used in the report</h3>
+      <p class="fine">Age by which 90% of US children produce each consonant correctly (Crowe &amp; McLeod, 2020). Clusters and vocalic /r/ currently use a placeholder rule: singleton age + 1 year.</p>
+      <div class="ages" id="ages"></div>
+      <p class="ask"><b>Question for you:</b> Are these the right norms to use for a parent-facing screen? What would you use for clusters and vocalic /r/?</p>
+    </section>
+
+    <section id="procedure">
+      <h2>Procedure</h2>
+      <p>The child names a picture on a phone or tablet while a parent sits with them. If the child doesn't know the word, the parent taps "say it with me" and the app models the word for the child to repeat. Each production is recorded and automatically transcribed into IPA. Only the target consonants in each word are scored.</p>
+      <ol class="steps">
+        <li><div><h3>Set-up (about 10 seconds)</h3><p>The parent enters the child's age and tests the microphone. The age changes how results are interpreted, not which words are given.</p></div></li>
+        <li><div><h3>Round 1 · Screen (30 words, about 2 minutes)</h3><p>Each word targets 1–4 consonants. Together the words sample every consonant in initial and final position (where these occur in English). Later-developing sounds (/ɹ s z l θ ð ʃ ʧ ʤ v/) are also sampled in medial position. One S-cluster, one L-cluster and one R-cluster word are included, plus five words with vocalic /r/ (/ɝ/). Early-developing sounds come first as warm-up.</p></div></li>
+        <li><div><h3>Round 2 · Confirm (only where an error occurred)</h3><p>Any sound and position with an error and fewer than 3 productions gets 1–2 more words, for 3 productions total. This separates consistent errors from one-off slips and transcription mistakes.</p></div></li>
+        <li><div><h3>Round 3 · Find the level (clusters and vocalic /r/)</h3><p>If a cluster word was in error but the singleton is correct, 4 cluster words find which clusters are affected (e.g., /tɹ/ vs /fɹ/; /sp/ vs /st/). If the singleton is also in error, clusters are not probed and practice starts with the singleton. If vocalic /r/ was in error, 5 words find which vowel contexts are affected (/ɑɹ ɔɹ ɝ ɪɹ ɛɹ/).</p></div></li>
+        <li><div><h3>Parent report (immediate)</h3><p>For each sound with confirmed errors: the positions and levels affected, examples of what was heard, an age-based interpretation, any pattern found, and a suggested first practice level. A recommendation to see an SLP appears when the referral rules are met.</p></div></li>
+      </ol>
+      <h3>Decision flow</h3>
+      <div class="flow" aria-label="Decision flow">
+        <div class="fbox"><b>Round 1 screen</b>30 picture words, about 2 minutes</div>
+        <div class="arrow">↓</div>
+        <div class="fbox q"><b>Any sound × position in error?</b></div>
+        <div class="frow">
+          <div class="fbox end"><b>No</b>Report: all sounds on track</div>
+          <div class="fbox"><b>Yes → Round 2 confirm</b>1–2 more words per position in error</div>
+        </div>
+        <div class="arrow">↓</div>
+        <div class="fbox q"><b>Is it consistent? (2 or more errors, at least 40% of productions)</b></div>
+        <div class="frow">
+          <div class="fbox"><b>No</b>Treated as a one-off slip. Not reported.</div>
+          <div class="fbox"><b>Yes</b>Confirmed error for that position</div>
+        </div>
+        <div class="arrow">↓</div>
+        <div class="fbox q"><b>Cluster or vocalic /r/ word in error?</b></div>
+        <div class="frow">
+          <div class="fbox"><b>Singleton also in error</b>Clusters not probed. Practice starts with the singleton.</div>
+          <div class="fbox"><b>Singleton correct → Round 3</b>4 cluster words, or 5 vocalic /r/ words</div>
+        </div>
+        <div class="arrow">↓</div>
+        <div class="fbox end"><b>Parent report</b>Positions affected, age interpretation, patterns, first practice level, referral if indicated</div>
+      </div>
+      <h3>Limits on length</h3>
+      <ul>
+        <li>No more than 2 extra words per sound × position. No more than 3 productions per position outside Round 3.</li>
+        <li>If the child names the picture with a different word ("bunny" for rabbit), the app models the target once and marks the item as imitated.</li>
+        <li>If a recording can't be scored reliably (noise, unclear production), it is repeated once and then skipped.</li>
+        <li>Hard cap of about 45 items. A child with errors on many sounds is better served by an SLP evaluation than by a longer screen.</li>
+      </ul>
+      <p class="ask"><b>Question for you:</b> Does this sequence (screen → confirm → level) match how you would probe at home-screen depth? Would you change the cap or the number of probe items?</p>
+    </section>
+
+    <section id="scoring">
+      <h2>Scoring rules</h2>
+      <div class="cols">
+        <div class="panel">
+          <h3>Per production</h3>
+          <ul>
+            <li>Each target consonant is scored correct or incorrect, based on an automatic broad IPA transcription of the production.</li>
+            <li>Incorrect productions are classified as substitution (with the sound heard), omission, or unclear.</li>
+            <li>Non-target sounds in the word are not scored.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Per sound × position</h3>
+          <ul>
+            <li><b>Confirmed error:</b> 2 or more incorrect productions, making up at least 40% of productions.</li>
+            <li><b>Slip:</b> a single incorrect production not repeated on confirmation. Not reported to parents.</li>
+            <li><b>Correct:</b> no incorrect productions.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Per sound (what parents see)</h3>
+          <ul>
+            <li><span class="pill practice">Practice</span> confirmed error, and the child is at or past the 90% mastery age.</li>
+            <li><span class="pill developing">Still developing</span> confirmed error, but the child is younger than the mastery age. Recheck in about 6 months.</li>
+            <li><span class="pill ok">On track</span> no confirmed error.</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Referral rules (draft)</h3>
+      <p>The report recommends an SLP evaluation when any of these is true:</p>
+      <ul>
+        <li>An early-developing sound (/b n m p h w d/) is in error at age 4 or older.</li>
+        <li>3 or more sounds are rated Practice.</li>
+        <li>Final consonant deletion occurs in 2 or more words at age 4 or older.</li>
+        <li>Any sound is rated Practice at age 8 or older.</li>
+      </ul>
+      <p class="ask"><b>Question for you:</b> Are these thresholds reasonable for a screen? What would you add, remove or change, for example intelligibility concerns, atypical error patterns, or vowel errors?</p>
+    </section>
+
+    <section id="words">
+      <h2>Word lists</h2>
+      <p>Round 1 words were chosen so that a small number of picturable words covers every needed sound and position. Covering every position once took 28–30 words. Covering every position twice took 60 words, about the length of a full articulation test. That is why Round 1 samples once, and probe items are added only where errors appear.</p>
+      <h3>Round 1 coverage</h3>
+      <p class="fine">Click a word to see which sounds and positions it samples, or click a cell to see its words.</p>
+      <div class="wordbank" id="wordbank"></div>
+      <div class="scroll"><table class="matrix" id="matrix"></table></div>
+      <div class="legend">
+        <span><i style="background:var(--blue-soft)"></i>1 word</span>
+        <span><i style="background:#b9d0e4"></i>2 words</span>
+        <span><i style="background:var(--blue)"></i>3+ words</span>
+        <span><i style="border-style:dashed;background:transparent"></i>not sampled in Round 1 (medial position of early sounds)</span>
+        <span>— position doesn't occur, or isn't screened</span>
+      </div>
+      <h3>Round 1 words with targets</h3>
+      <div class="scroll"><table class="words" id="r1table"></table></div>
+      <details class="more"><summary>Round 2 confirmation words (by sound and position)</summary><div class="scroll" style="margin-top:10px"><table class="words" id="r2table"></table></div></details>
+      <details class="more"><summary>Round 3 cluster and vocalic /r/ words</summary><div class="scroll" style="margin-top:10px"><table class="words" id="r3table"></table></div></details>
+      <h3>Selection principles</h3>
+      <ul>
+        <li>Picturable and familiar to most 3–4 year olds. To be checked against age-of-acquisition norms.</li>
+        <li>No more than 4 scored targets per word, and target sounds not adjacent where avoidable.</li>
+        <li>Clusters are scored as clusters. The /ɹ/ in "toothbrush" counts toward R-clusters, not toward initial or medial R.</li>
+        <li>Medial /t/ and /d/ are avoided, because they are usually flapped in American English (water, ladder).</li>
+        <li>Initial /ð/ uses "that" with a pointing prompt ("I want that one!"), because few picturable nouns begin with /ð/.</li>
+        <li>/ʒ/ is not currently included. It is rare in early vocabulary.</li>
+      </ul>
+      <p class="ask"><b>Question for you:</b> Are any words unsuitable (unfamiliar, hard to picture, poor phonetic context)? Would you swap any, or add items for positions with only one sample?</p>
+    </section>
+
+    <section id="demo">
+      <h2>Try the flow</h2>
+      <p>This prototype runs the actual round and scoring rules on a simulated child, so you can see how the procedure adapts. Choose a sample child, then step through word by word or jump to the report. Choose "You decide" to mark errors yourself by clicking the sound chips. Recording and transcription are simulated, and words appear as text where the app will show pictures.</p>
+      <div class="poc">
+        <div class="controls">
+          <label for="persona">Sample child
+            <select id="persona"></select>
+          </label>
+          <label for="age">Child's age
+            <select id="age"></select>
+          </label>
+          <label class="check" for="noise"><input type="checkbox" id="noise"> Add 6% transcription mistakes</label>
+          <button class="btn primary" id="startBtn" type="button">Start again</button>
+        </div>
+        <p class="persona-note" id="personaNote"></p>
+        <div class="stage">
+          <div>
+            <div class="roundbar" id="roundbar"></div>
+            <div class="flash" id="flash" aria-live="polite"></div>
+            <div class="targets" id="targets"></div>
+            <div class="stagebtns">
+              <button class="btn primary" id="nextBtn" type="button">Next word</button>
+              <button class="btn" id="autoBtn" type="button">Run to the report</button>
+            </div>
+          </div>
+          <div class="log" id="log"></div>
+        </div>
+        <div class="report" id="reportWrap" hidden>
+          <div class="tabs" role="tablist">
+            <button type="button" id="tabParent" class="on" role="tab" aria-selected="true">Parent view</button>
+            <button type="button" id="tabTeam" role="tab" aria-selected="false">Clinician view (scores by position)</button>
+          </div>
+          <div id="reportParent"></div>
+          <div id="reportTeam" hidden></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="report">
+      <h2>The parent report</h2>
+      <div class="cols">
+        <div class="panel"><h3>What parents see</h3><ul>
+          <li>A headline, for example "2 sounds to practice, 1 still developing, 20 on track".</li>
+          <li>One card per sound with confirmed errors, with examples of what was heard ("said <span class="ipa">/wɛd/</span> for red").</li>
+          <li>Positions and levels affected: start, middle, end, blends, vowel + R.</li>
+          <li>An age note: "Most children say R clearly by about 6."</li>
+          <li>A suggested starting point in the practice program, e.g., R → single sound → start of words, or R → blends → TR, GR.</li>
+          <li>Patterns in everyday words, with the clinical term in small print.</li>
+          <li>An SLP recommendation when the referral rules are met, and a clear statement that this is a screen, not a diagnosis.</li>
+        </ul></div>
+        <div class="panel"><h3>Parent wording for patterns</h3>
+          <div class="scroll"><table>
+            <thead><tr><th>Parent wording</th><th>Clinical term</th></tr></thead>
+            <tbody>
+              <tr><td>Uses W in place of R or L</td><td>Gliding</td></tr>
+              <tr><td>Says T or D in place of K or G</td><td>Velar fronting</td></tr>
+              <tr><td>Tongue peeks out on S and Z</td><td>Interdental lisp</td></tr>
+              <tr><td>Stops the airflow on hissing sounds</td><td>Stopping</td></tr>
+              <tr><td>Says F in place of TH</td><td>/θ/ → [f] (also a dialect feature)</td></tr>
+              <tr><td>R after a vowel sounds unclear</td><td>Vocalic /r/ error</td></tr>
+              <tr><td>Leaves out a sound in blends</td><td>Cluster reduction</td></tr>
+              <tr><td>Drops sounds at the end of words</td><td>Final consonant deletion</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+      </div>
+      <p class="ask"><b>Question for you:</b> Is the parent wording accurate and not alarming? Are the "still developing" and "practice" labels appropriate, or would you frame them differently?</p>
+    </section>
+
+    <section id="limits">
+      <h2>Known limits</h2>
+      <div class="scroll">
+      <table>
+        <thead><tr><th>Limit</th><th>Why it matters</th><th>Current plan</th></tr></thead>
+        <tbody>
+          <tr><td>Distortions</td><td>Automatic transcription gives a broad phoneme label. Lateral lisps, derhotacized /r/ and other distortions that aren't a clean swap for another phoneme may be scored as correct.</td><td>Add specific distortion categories for /s z ɹ/. Report "sounds unclear" rather than naming a substitute. Measure how often distortions are missed in the pilot.</td></tr>
+          <tr><td>Children's voices</td><td>Recognition is less accurate for young children's speech than for adults'.</td><td>Train and test on child recordings. Mark low-confidence productions as unclear and repeat them, rather than scoring them as errors.</td></tr>
+          <tr><td>Dialect</td><td>Some features are typical in certain dialects, such as /θ/ → [f] and some final consonant reduction in African American English.</td><td>An optional dialect setting that doesn't flag known dialect features. We'd welcome your guidance on which features to include.</td></tr>
+          <tr><td>Imitation</td><td>Productions after a model may be more accurate than spontaneous naming.</td><td>Imitated items are marked, and a correct imitated production counts as weaker evidence of accuracy.</td></tr>
+          <tr><td>Single words only</td><td>Accuracy in single words may be higher than in conversation.</td><td>The report says it is based on single words. A short sentence task may be added later.</td></tr>
+          <tr><td>Home recording</td><td>Background noise and phone microphones.</td><td>Microphone check at set-up, and one repeat for unscorable recordings.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="ask"><b>Question for you:</b> What other limits or risks would you flag for a parent-run screen, and how should the report communicate them?</p>
+    </section>
+
+    <section id="validate">
+      <h2>How we plan to validate it</h2>
+      <ol>
+        <li><b>Recorded examples.</b> Check scoring on recorded correct and error productions of every word in the lists.</li>
+        <li><b>Pilot with SLP judgment.</b> 40–60 children aged 3–9 complete the screen. An SLP independently scores the same productions from the recordings. We compare agreement for each sound and position, and on the overall recommendation (practice / developing / refer). Target: sensitivity and specificity of at least 0.80 for confirmed errors.</li>
+        <li><b>Family beta.</b> Completion time (goal: median under 3 minutes), how well parents understand the report, and agreement with later SLP evaluations for children who were referred.</li>
+      </ol>
+      <p class="ask"><b>Question for you:</b> Would you be willing to score pilot recordings, or advise on the protocol? What agreement level would you consider acceptable for a screen?</p>
+    </section>
+
+    <section id="review">
+      <h2>Your review</h2>
+      <p>Answer whichever questions you like. Your answers stay in your browser until you copy them. Press <b>Copy my answers</b> and paste them into an email to the Sara Speech team.</p>
+      <ol class="qs" id="qs"></ol>
+      <div class="copyrow">
+        <button class="btn primary" type="button" id="copyBtn">Copy my answers</button>
+        <span id="copyStatus" role="status"></span>
+      </div>
+      <textarea id="copyOut" readonly hidden aria-label="Your answers as text"></textarea>
+    </section>
+
+    <section id="refs">
+      <h2>References</h2>
+      <ol class="refs">
+        <li>Crowe, K. &amp; McLeod, S. (2020). Children's English consonant acquisition in the United States: A review. <i>American Journal of Speech-Language Pathology</i>, 29(4), 2155–2169. <a href="https://pubs.asha.org/doi/10.1044/2020_AJSLP-19-00168" target="_blank" rel="noopener">pubs.asha.org</a> · <a href="https://www.resa.net/downloads/special-education/speech/learning-english-consonants-croweand-mcleod.pdf" target="_blank" rel="noopener">summary chart (PDF)</a></li>
+        <li>ASHA Practice Portal: Speech Sound Disorders, Articulation and Phonology. <a href="https://www.asha.org/practice-portal/clinical-topics/articulation-and-phonology/" target="_blank" rel="noopener">asha.org</a> · <a href="https://www.asha.org/practice-portal/clinical-topics/articulation-and-phonology/selected-phonological-patterns/" target="_blank" rel="noopener">selected phonological patterns</a></li>
+        <li>Goldman-Fristoe Test of Articulation, 3rd ed. (GFTA-3): overview and administration. <a href="https://www.physio-pedia.com/The_Goldman-Fristoe_Test_of_Articulation_%E2%80%93_Third_Edition_(GFTA-3)" target="_blank" rel="noopener">Physio-pedia</a> · <a href="https://simplepractice.com/blog/speech-test-gfta3" target="_blank" rel="noopener">SimplePractice</a></li>
+        <li>Diagnostic Evaluation of Articulation and Phonology (DEAP), including the 5-minute diagnostic screen. <a href="https://www.pearsonclinical.ca/store/en/p/P100008077" target="_blank" rel="noopener">Pearson</a></li>
+        <li>Articulation screening vs. full diagnostic assessment, and focused probes. <a href="https://conductscience.com/tools/articulation-screener" target="_blank" rel="noopener">ConductScience</a></li>
+        <li>Single-word vs. connected speech samples in children with speech sound disorders (2021). <i>JSLHR</i>. <a href="https://pubs.asha.org/doi/10.1044/2021_JSLHR-20-00172" target="_blank" rel="noopener">pubs.asha.org</a></li>
+        <li>Syrika et al. (2007). Acquisition of consonant clusters. <a href="https://www.ling.ohio-state.edu/pdlg/SyrikaEtAl2007SRCLD.pdf" target="_blank" rel="noopener">PDF</a></li>
+        <li>Automatic speech recognition compared with SLP scoring in children with speech sound disorders (2025): ICC 0.98 for percentage of consonants correct. <i>JMIR</i>. <a href="https://www.jmir.org/2025/1/e60520" target="_blank" rel="noopener">jmir.org</a></li>
+        <li>Ward et al. (2016). Automated screening of speech development issues in children by identifying phonological error patterns. Interspeech. <a href="https://www.isca-archive.org/interspeech_2016/ward16_interspeech.pdf" target="_blank" rel="noopener">PDF</a></li>
+      </ol>
+    </section>
+  </main>
+</div>
+<footer>Sara Speech · Quick Sound Check proposal · For review by speech-language pathologists. Not a clinical diagnostic tool.</footer>
+<script>
+
+(function () {
+  "use strict";
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+  // ---------- Sounds, ages (Crowe & McLeod 2020, 90% criterion) ----------
+  const S = {
+    r: { l: "R", ex: "red", age: 6 }, s: { l: "S", ex: "sun", age: 5 }, z: { l: "Z", ex: "zoo", age: 5 }, l: { l: "L", ex: "leaf", age: 5 },
+    th: { l: "TH", ex: "thumb", age: 7 }, thv: { l: "TH (voiced)", ex: "that", age: 6 }, sh: { l: "SH", ex: "shoe", age: 5 },
+    ch: { l: "CH", ex: "cheese", age: 5 }, j: { l: "J", ex: "juice", age: 5 }, v: { l: "V", ex: "van", age: 5 },
+    k: { l: "K", ex: "cup", age: 4 }, g: { l: "G", ex: "goat", age: 4 }, f: { l: "F", ex: "fish", age: 4 }, t: { l: "T", ex: "top", age: 4 },
+    ng: { l: "NG", ex: "sing", age: 4 }, y: { l: "Y", ex: "yes", age: 4 }, d: { l: "D", ex: "dog", age: 3 }, w: { l: "W", ex: "web", age: 3 },
+    h: { l: "H", ex: "hat", age: 3 }, n: { l: "N", ex: "nose", age: 3 }, m: { l: "M", ex: "mouth", age: 3 }, p: { l: "P", ex: "pig", age: 3 }, b: { l: "B", ex: "ball", age: 3 },
+  };
+  const ORDER = ["r", "s", "z", "l", "th", "thv", "sh", "ch", "j", "v", "k", "g", "f", "t", "ng", "y", "d", "w", "h", "n", "m", "p", "b"];
+  const POS = { I: "start", M: "middle", F: "end", B: "blends", V: "vowel + R" };
+  const POS_ORDER = ["I", "M", "F", "B", "V"];
+  const LATE = new Set(["r", "s", "z", "l", "th", "thv", "sh", "ch", "j", "v"]);
+  function applicable(s, p) {
+    if (p === "B") return ["r", "l", "s"].includes(s);
+    if (p === "V") return s === "r";
+    if (s === "ng" && p === "I") return false;
+    if (["h", "w", "y"].includes(s) && p !== "I") return false;
+    if (s === "thv" && p === "F") return false;
+    return true;
+  }
+
+  // ---------- Age chart ----------
+  (function () {
+    const ages = document.getElementById("ages");
+    for (const a of [3, 4, 5, 6, 7]) {
+      const list = ORDER.filter((s) => S[s].age === a);
+      ages.insertAdjacentHTML("beforeend", `<div><h4>By age ${a}</h4><div class="chips">${list.map((s) => `<span class="chip" title="as in ${esc(S[s].ex)}">${esc(S[s].l)}</span>`).join("")}</div></div>`);
+    }
+  })();
+
+  // ---------- Word data (IPA uses the model's symbols) ----------
+  const W = (word, seg, targets, prompt) => ({ word, seg: seg.split(" "), targets: targets.map(([i, sound, pos, ctx]) => ({ i, sound, pos, ctx })), prompt });
+  const SCREEN = [
+    W("dog", "d ɔ g", [[0, "d", "I"], [2, "g", "F"]]),
+    W("cup", "k ʌ p", [[0, "k", "I"], [2, "p", "F"]]),
+    W("balloon", "b ə l u n", [[0, "b", "I"], [2, "l", "M"], [4, "n", "F"]]),
+    W("mouth", "m aʊ θ", [[0, "m", "I"], [2, "th", "F"]]),
+    W("house", "h aʊ s", [[0, "h", "I"], [2, "s", "F"]]),
+    W("web", "w ɛ b", [[2, "b", "F"]]),
+    W("nose", "n oʊ z", [[0, "n", "I"], [2, "z", "F"]]),
+    W("yo-yo", "j oʊ j oʊ", [[0, "y", "I"]]),
+    W("red", "ɹ ɛ d", [[0, "r", "I"], [2, "d", "F"]]),
+    W("scissors", "s ɪ z ɝ z", [[0, "s", "I"], [2, "z", "M"], [3, "r", "V", "er"], [4, "z", "F"]]),
+    W("toothbrush", "t u θ b ɹ ʌ ʃ", [[0, "t", "I"], [2, "th", "M"], [4, "r", "B", "br"], [6, "sh", "F"]]),
+    W("shovel", "ʃ ʌ v ə l", [[0, "sh", "I"], [2, "v", "M"], [4, "l", "F"]]),
+    W("fishing", "f ɪ ʃ ɪ ŋ", [[0, "f", "I"], [2, "sh", "M"], [4, "ng", "F"]]),
+    W("watch", "w ɑ ʧ", [[0, "w", "I"], [2, "ch", "F"]]),
+    W("thumb", "θ ʌ m", [[0, "th", "I"], [2, "m", "F"]]),
+    W("leaf", "l i f", [[0, "l", "I"], [2, "f", "F"]]),
+    W("cage", "k eɪ ʤ", [[0, "k", "I"], [2, "j", "F"]]),
+    W("that", "ð æ t", [[0, "thv", "I"], [2, "t", "F"]], "Point to a toy: “I want that one!”"),
+    W("glove", "g l ʌ v", [[1, "l", "B", "gl"], [3, "v", "F"]]),
+    W("snake", "s n eɪ k", [[0, "s", "B", "sn"], [3, "k", "F"]]),
+    W("pencil", "p ɛ n s ə l", [[0, "p", "I"], [3, "s", "M"], [5, "l", "F"]]),
+    W("zipper", "z ɪ p ɝ", [[0, "z", "I"], [2, "p", "M"], [3, "r", "V", "er"]]),
+    W("cheese", "ʧ i z", [[0, "ch", "I"], [2, "z", "F"]]),
+    W("juice", "ʤ u s", [[0, "j", "I"], [2, "s", "F"]]),
+    W("girl", "g ɝ l", [[0, "g", "I"], [1, "r", "V", "er"], [2, "l", "F"]]),
+    W("van", "v æ n", [[0, "v", "I"], [2, "n", "F"]]),
+    W("feather", "f ɛ ð ɝ", [[0, "f", "I"], [2, "thv", "M"], [3, "r", "V", "er"]]),
+    W("teacher", "t i ʧ ɝ", [[0, "t", "I"], [2, "ch", "M"], [3, "r", "V", "er"]]),
+    W("pajamas", "p ə ʤ ɑ m ə z", [[0, "p", "I"], [2, "j", "M"], [6, "z", "F"]]),
+    W("carrot", "k ɛ ɹ ə t", [[0, "k", "I"], [2, "r", "M"], [4, "t", "F"]]),
+  ];
+  // Round 2 double-check words: one scored spot each.
+  const BANK = {
+    "r-I": ["rain", "rope"], "r-M": ["parrot", "giraffe"],
+    "s-I": ["sun", "soap"], "s-M": ["dinosaur", "bicycle"], "s-F": ["bus", "ice"],
+    "z-I": ["zebra", "zero"], "z-M": ["lizard", "puzzle"], "z-F": ["bees", "eyes"],
+    "l-I": ["lion", "lamp"], "l-M": ["yellow", "jelly"], "l-F": ["ball", "bell"],
+    "sh-I": ["shoe", "ship"], "sh-M": ["cushion", "ocean"], "sh-F": ["fish", "dish"],
+    "ch-I": ["chair", "chick"], "ch-M": ["kitchen", "matches"], "ch-F": ["peach", "beach"],
+    "j-I": ["jam", "jet"], "j-M": ["magic", "pigeon"], "j-F": ["badge", "page"],
+    "th-I": ["thief", "thorn"], "th-M": ["bathtub", "toothpaste"], "th-F": ["teeth", "bath"],
+    "thv-I": ["this", "those"], "thv-M": ["mother", "father"],
+    "v-I": ["vase", "vest"], "v-M": ["oven", "seven"], "v-F": ["five", "cave"],
+    "f-I": ["fan", "foot"], "f-F": ["knife", "giraffe"],
+    "k-I": ["cat", "cow"], "k-F": ["book", "duck"], "g-I": ["goat", "gum"], "g-F": ["egg", "pig"],
+    "t-I": ["top", "toe"], "t-F": ["hat", "boat"], "d-I": ["duck", "doll"], "d-F": ["bed", "seed"],
+    "n-I": ["nest", "nut"], "n-F": ["pen", "moon"], "m-I": ["moon", "mop"], "m-F": ["gum", "ham"],
+    "p-I": ["pig", "pan"], "p-M": ["puppy", "happy"], "p-F": ["map", "soap"],
+    "b-I": ["bee", "bus"], "b-F": ["tub", "cub"], "h-I": ["hat", "hen"], "w-I": ["wing", "wagon"], "y-I": ["yellow", "yawn"],
+    "ng-F": ["king", "sing"],
+  };
+  // Round 3 level-finding words.
+  const BLENDS = {
+    r: [W("tree", "t ɹ i", [[1, "r", "B", "tr"]]), W("frog", "f ɹ ɔ g", [[1, "r", "B", "fr"]]), W("crab", "k ɹ æ b", [[1, "r", "B", "kr"]]), W("grapes", "g ɹ eɪ p s", [[1, "r", "B", "gr"]])],
+    l: [W("blue", "b l u", [[1, "l", "B", "bl"]]), W("clock", "k l ɑ k", [[1, "l", "B", "kl"]]), W("flag", "f l æ g", [[1, "l", "B", "fl"]]), W("plane", "p l eɪ n", [[1, "l", "B", "pl"]])],
+    s: [W("spoon", "s p u n", [[0, "s", "B", "sp"]]), W("star", "s t ɑ ɹ", [[0, "s", "B", "st"]]), W("skate", "s k eɪ t", [[0, "s", "B", "sk"]]), W("smile", "s m aɪ l", [[0, "s", "B", "sm"]])],
+  };
+  const VOWEL_R = [W("car", "k ɑ ɹ", [[2, "r", "V", "ar"]]), W("door", "d ɔ ɹ", [[2, "r", "V", "or"]]), W("bird", "b ɝ d", [[1, "r", "V", "er"]]), W("deer", "d ɪ ɹ", [[2, "r", "V", "ear"]]), W("chair", "ʧ ɛ ɹ", [[2, "r", "V", "air"]])];
+
+  // ---------- Coverage matrix ----------
+  const cover = {};
+  SCREEN.forEach((w, wi) => w.targets.forEach((t) => { const k = t.sound + "-" + t.pos; (cover[k] = cover[k] || []).push(wi); }));
+  const wb = document.getElementById("wordbank");
+  wb.innerHTML = SCREEN.map((w, i) => `<button type="button" class="wbtn" data-w="${i}">${esc(w.word)}</button>`).join("");
+  const mx = document.getElementById("matrix");
+  let mh = `<thead><tr><th>Sound</th>${POS_ORDER.map((p) => `<th>${POS[p]}</th>`).join("")}</tr></thead><tbody>`;
+  for (const s of ORDER) {
+    mh += `<tr><td><b>${esc(S[s].l)}</b> <span class="fine">${esc(S[s].ex)}</span></td>`;
+    for (const p of POS_ORDER) {
+      const k = s + "-" + p;
+      if (!applicable(s, p)) { mh += `<td><span class="cell na" aria-hidden="true">—</span></td>`; continue; }
+      const n = (cover[k] || []).length;
+      const needed = p !== "M" || LATE.has(s);
+      if (!n) mh += `<td><span class="cell n0" title="${needed ? "not covered" : "checked in practice, not in the quick screen"}">${needed ? "!" : "·"}</span></td>`;
+      else mh += `<td><button type="button" class="cell c${Math.min(n, 3)}" data-k="${k}" aria-label="${esc(S[s].l)} ${POS[p]}: ${n} words">${n}</button></td>`;
+    }
+    mh += "</tr>";
+  }
+  mx.innerHTML = mh + "</tbody>";
+  function clearHL() { mx.querySelectorAll(".hl").forEach((e) => e.classList.remove("hl")); wb.querySelectorAll(".wbtn").forEach((b) => b.classList.remove("on", "dim")); }
+  wb.addEventListener("click", (e) => {
+    const b = e.target.closest(".wbtn"); if (!b) return;
+    const was = b.classList.contains("on"); clearHL(); if (was) return;
+    b.classList.add("on");
+    SCREEN[+b.dataset.w].targets.forEach((t) => { const c = mx.querySelector(`[data-k="${t.sound}-${t.pos}"]`); if (c) c.classList.add("hl"); });
+  });
+  mx.addEventListener("click", (e) => {
+    const c = e.target.closest("button.cell"); if (!c) return;
+    const was = c.classList.contains("hl"); clearHL(); if (was) return;
+    c.classList.add("hl");
+    const ws = new Set(cover[c.dataset.k]);
+    wb.querySelectorAll(".wbtn").forEach((b) => b.classList.add(ws.has(+b.dataset.w) ? "on" : "dim"));
+  });
+
+  // ---------- Word list tables (clinical notation) ----------
+  const IPA = { r: "ɹ", s: "s", z: "z", l: "l", th: "θ", thv: "ð", sh: "ʃ", ch: "ʧ", j: "ʤ", v: "v", k: "k", g: "g", f: "f", t: "t", ng: "ŋ", y: "j", d: "d", w: "w", h: "h", n: "n", m: "m", p: "p", b: "b" };
+  const CPOS = { I: "initial", M: "medial", F: "final", B: "cluster", V: "vocalic" };
+  const tgtLabel = (t) => t.pos === "B" ? `/${t.ctx}/ cluster` : t.pos === "V" ? `vocalic /r/ (${t.ctx})` : `/${IPA[t.sound]}/ ${CPOS[t.pos]}`;
+  document.getElementById("r1table").innerHTML = `<thead><tr><th>#</th><th>Word</th><th>Transcription</th><th>Scored targets</th></tr></thead><tbody>` +
+    SCREEN.map((w, i) => `<tr><td class="fine">${i + 1}</td><td>${esc(w.word)}${w.prompt ? `<div class="fine">${esc(w.prompt)}</div>` : ""}</td><td class="ipa">/${esc(w.seg.join(""))}/</td><td>${w.targets.map((t) => `<span class="tgt">${esc(tgtLabel(t))}</span>`).join("")}</td></tr>`).join("") + "</tbody>";
+  document.getElementById("r2table").innerHTML = `<thead><tr><th>Target</th><th>Confirmation words</th></tr></thead><tbody>` +
+    ORDER.flatMap((s) => ["I", "M", "F"].filter((p) => BANK[s + "-" + p]).map((p) => `<tr><td>${esc(tgtLabel({ sound: s, pos: p }))}</td><td>${esc(BANK[s + "-" + p].join(", "))}</td></tr>`)).join("") + "</tbody>";
+  const r3rows = [["R-clusters", BLENDS.r], ["L-clusters", BLENDS.l], ["S-clusters", BLENDS.s], ["Vocalic /r/", VOWEL_R]];
+  document.getElementById("r3table").innerHTML = `<thead><tr><th>Level</th><th>Words</th></tr></thead><tbody>` +
+    r3rows.map(([lab, ws]) => `<tr><td>${lab}</td><td>${ws.map((w) => `${esc(w.word)} <span class="ipa">/${esc(w.seg.join(""))}/</span> <span class="tgt">${esc(w.targets[0].ctx)}</span>`).join("<br>")}</td></tr>`).join("") + "</tbody>";
+
+  // ---------- Review questions ----------
+  const QS = [
+    ["Is a 30-word picture-naming screen appropriate for this purpose?", "What minimum age would you recommend: 3, or 4 when picture naming is more reliable?"],
+    ["Are the Round 1 words suitable?", "Flag words that are unfamiliar, hard to picture, or have a poor phonetic context, and suggest replacements."],
+    ["Is sampling initial and final for all sounds, plus medial for later-developing sounds, enough for a screen?", "Should medial position be screened for early sounds too?"],
+    ["Is the confirmation rule reasonable?", "A position counts as an error with 2+ incorrect productions making up at least 40% of productions, with up to 3 productions per position."],
+    ["Do you agree with the cluster logic?", "Clusters are probed only if a cluster word is in error and the singleton is correct, and skipped if the singleton is in error. Are /sp st sk sm/, /tɹ fɹ kɹ gɹ/ and /bl kl fl pl/ the right probe clusters?"],
+    ["Are the vocalic /r/ contexts sufficient?", "Currently /ɑɹ ɔɹ ɝ ɪɹ ɛɹ/. Should /aɪɹ/ or others be added?"],
+    ["Which age norms should we use?", "Crowe & McLeod (2020) 90% criterion for singletons; placeholder of singleton age + 1 year for clusters and vocalic /r/."],
+    ["Are the parent labels and wording appropriate?", "'Practice' vs 'Still developing', the plain-language pattern descriptions, and the 6-month recheck suggestion."],
+    ["Are the referral rules right?", "What would you add or remove, e.g., unusual error patterns, vowel errors, intelligibility, or parent concern?"],
+    ["How should we handle dialect?", "Which features should not be flagged, for example in African American English or Spanish-influenced English?"],
+    ["How should imitated productions count?", "When the child repeats after the app's model instead of naming the picture."],
+    ["How should we handle distortions we may not detect?", "For example lateral /s/ or derhotacized /r/. Should the report always include a caveat?"],
+    ["Anything else?", "Including whether /ʒ/ or a short connected-speech task should be added."],
+  ];
+  const qsEl = document.getElementById("qs");
+  const store = { get(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }, set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
+  qsEl.innerHTML = QS.map(([q, hint], i) => `<li><label for="q${i}">${esc(q)}<span class="hint">${esc(hint)}</span></label><textarea id="q${i}" rows="3"></textarea></li>`).join("");
+  QS.forEach((_, i) => { const t = document.getElementById("q" + i); t.value = store.get("qsc-q" + i) || ""; t.addEventListener("input", () => store.set("qsc-q" + i, t.value)); });
+  document.getElementById("copyBtn").addEventListener("click", () => {
+    const text = "Quick Sound Check: SLP review\n\n" + QS.map(([q], i) => `Q${i + 1}. ${q}\n${document.getElementById("q" + i).value.trim() || "(no answer)"}`).join("\n\n");
+    const out = document.getElementById("copyOut"), status = document.getElementById("copyStatus");
+    out.value = text;
+    const fallback = () => { out.hidden = false; out.focus(); out.select(); status.textContent = "Couldn't copy automatically. The text is selected below, so press Ctrl+C or Cmd+C."; };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => { status.textContent = "Copied. Paste it into an email to the Sara Speech team."; }, fallback);
+    else fallback();
+  });
+
+  // ---------- Sample children ----------
+  const PERSONAS = {
+    rgliding: { name: "R trouble everywhere", age: 7, note: "Says W for R (“wed” for red) and vowel + R sounds unclear. Blends are skipped because single R is already hard.", rules: [{ s: "r", pos: ["I", "M", "B"], heard: "w" }, { s: "r", pos: ["V"], heard: "ʊ" }] },
+    rsub: { name: "Only some R levels", age: 8, note: "Single R at the start is fine. Vowel + R is off in “er” and “ear”, and some R-blends drop the R (“tee” for tree). Shows Round 3 finding the exact level.", rules: [{ s: "r", pos: ["V"], heard: "ʊ", ctx: ["er", "ear"] }, { s: "r", pos: ["B"], heard: "", ctx: ["br", "tr", "gr"] }] },
+    lisp: { name: "Lisp on S and Z", age: 6, note: "Says TH for S and Z (“thun” for sun). Usually mastered by 5, so it is marked Practice.", rules: [{ s: "s", pos: ["I", "M", "F", "B"], heard: "θ" }, { s: "z", pos: ["I", "M", "F"], heard: "ð" }] },
+    fronting: { name: "Younger child, several patterns", age: 4, note: "Says T for K and D for G (“tup” for cup). R and TH errors are normal at 4, so they are marked Still developing.", rules: [{ s: "k", pos: ["I", "M", "F"], heard: "t" }, { s: "g", pos: ["I", "M", "F"], heard: "d" }, { s: "r", pos: ["I", "M", "B"], heard: "w" }, { s: "r", pos: ["V"], heard: "ʊ" }, { s: "th", pos: ["I", "M", "F"], heard: "f" }] },
+    typical: { name: "Typical 6-year-old", age: 6, note: "Only TH sounds like F, which is common until about 7. Turn on transcription mistakes to see Round 2 clear one-off slips.", rules: [{ s: "th", pos: ["I", "M", "F"], heard: "f" }] },
+    manual: { name: "You decide (click chips)", age: 6, note: "Every sound starts as correct. Click a sound chip to mark it as missed, then press Next word.", rules: [] },
+  };
+  const pSel = document.getElementById("persona"), aSel = document.getElementById("age"), noiseEl = document.getElementById("noise");
+  pSel.innerHTML = Object.entries(PERSONAS).map(([k, p]) => `<option value="${k}">${esc(p.name)}</option>`).join("");
+  aSel.innerHTML = [3, 4, 5, 6, 7, 8, 9].map((a) => `<option value="${a}">${a} years</option>`).join("");
+
+  // ---------- Session engine ----------
+  const MAX_ITEMS = 45;
+  let st;
+  function rng(seed) { return function () { seed |= 0; seed = (seed + 0x6d2b79f5) | 0; let t = Math.imul(seed ^ (seed >>> 15), 1 | seed); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function bankItem(word, sound, pos) { return { word, seg: null, targets: [{ i: -1, sound, pos }] }; }
+
+  function reset() {
+    const p = PERSONAS[pSel.value];
+    st = { persona: p, manual: pSel.value === "manual", age: +aSel.value, noise: noiseEl.checked, rand: rng(42), round: 1, queue: SCREEN.map((w) => ({ ...w, round: 1 })), idx: 0, log: [], done: false, skipBlends: {}, current: null, roundsRun: [1] };
+    document.getElementById("personaNote").textContent = p.note;
+    document.getElementById("reportWrap").hidden = true;
+    prepCurrent(); render();
+  }
+  function simulate(t) {
+    if (st.manual) return { heard: null };
+    for (const r of st.persona.rules) if (r.s === t.sound && r.pos.includes(t.pos) && (!r.ctx || r.ctx.includes(t.ctx))) return { heard: r.heard };
+    if (st.noise && st.rand() < 0.06) return { heard: "?", noise: true };
+    return { heard: null };
+  }
+  function prepCurrent() {
+    const it = st.queue[st.idx];
+    if (!it) { st.current = null; return; }
+    st.current = { item: it, out: it.targets.map((t) => ({ ...t, ...simulate(t) })) };
+  }
+  function stats() {
+    const c = {};
+    for (const e of st.log) for (const o of e.out) {
+      const k = o.sound + "-" + o.pos;
+      const x = (c[k] = c[k] || { a: 0, e: 0, ctxErr: new Set(), ctxOk: new Set(), ex: [] });
+      x.a++;
+      if (o.heard !== null) { x.e++; if (o.ctx) x.ctxErr.add(o.ctx); x.ex.push({ item: e.item, o }); }
+      else if (o.ctx) x.ctxOk.add(o.ctx);
+    }
+    return c;
+  }
+  function status(c, k) {
+    if (st.skipBlends[k]) return "skip";
+    const x = c[k]; if (!x) return "none";
+    if (x.e >= 2 && x.e / x.a >= 0.4) return "error";
+    if (x.e === 1 && x.a === 1) return "error";
+    if (x.e >= 1) return "slip";
+    return "ok";
+  }
+  function planRound2() {
+    const c = stats(), q = [];
+    for (const [k, x] of Object.entries(c)) {
+      const pos = k.split("-").pop(); if (pos === "B" || pos === "V") continue;
+      if (x.e >= 1 && x.a < 3 && BANK[k]) {
+        const [s] = k.split("-");
+        BANK[k].slice(0, Math.min(2, 3 - x.a)).forEach((w) => q.push({ ...bankItem(w, s, pos), round: 2 }));
+      }
+    }
+    return q;
+  }
+  function planRound3() {
+    const c = stats(), q = [];
+    for (const fam of ["r", "l", "s"]) {
+      const b = c[fam + "-B"]; if (!b || b.e === 0) continue;
+      if (status(c, fam + "-I") === "error") { st.skipBlends[fam + "-B"] = true; continue; }
+      BLENDS[fam].forEach((w) => q.push({ ...w, round: 3 }));
+    }
+    if (c["r-V"] && c["r-V"].e > 0) VOWEL_R.forEach((w) => q.push({ ...w, round: 3 }));
+    return q;
+  }
+  function advance() {
+    if (!st.current) return;
+    st.log.push({ item: st.current.item, out: st.current.out, round: st.current.item.round });
+    st.idx++;
+    if (st.idx >= st.queue.length) {
+      let next = [];
+      while (!next.length && st.round < 3) {
+        st.round++;
+        next = st.round === 2 ? planRound2() : planRound3();
+        next = next.slice(0, Math.max(0, MAX_ITEMS - st.queue.length));
+        if (next.length) st.roundsRun.push(st.round);
+      }
+      next = next.slice(0, Math.max(0, MAX_ITEMS - st.queue.length));
+      if (next.length) { st.queue = st.queue.concat(next); }
+      else { st.done = true; }
+    }
+    prepCurrent();
+  }
+
+  // ---------- Rendering ----------
+  function heardIPA(item, out) {
+    if (!item.seg) return null;
+    const seg = item.seg.slice();
+    for (const o of out) if (o.heard !== null && o.i >= 0) seg[o.i] = o.heard === "?" ? "?" : o.heard;
+    return seg.join("");
+  }
+  function chipLabel(o) { return `${S[o.sound].l} · ${POS[o.pos]}${o.ctx ? " (" + o.ctx.toUpperCase() + ")" : ""}`; }
+  function heardText(h) { return h === "" ? "dropped" : h === "?" ? "unclear" : `heard “${h}”`; }
+  const ROUND_NAMES = { 1: "Round 1 · Quick screen", 2: "Round 2 · Double-check", 3: "Round 3 · Find the level" };
+  function render() {
+    const rb = document.getElementById("roundbar");
+    const curRound = st.current ? st.current.item.round : st.round;
+    rb.innerHTML = [1, 2, 3].map((r) => `<span class="${st.done || r < curRound ? "done" : r === curRound ? "on" : ""}">${ROUND_NAMES[r]}</span>`).join("") + `<span class="${st.done ? "on" : ""}">Report</span>`;
+    const flash = document.getElementById("flash"), tg = document.getElementById("targets");
+    if (st.current) {
+      const { item, out } = st.current;
+      const n = st.idx + 1;
+      flash.innerHTML = `<div class="pic">picture card · word ${n}</div><div class="prompt">${esc(item.prompt || "What's this?")}</div><div class="word">${esc(item.word)}</div>${item.seg ? `<div class="ipa">/${esc(item.seg.join(""))}/</div>` : ""}`;
+      flash.classList.add("bump"); setTimeout(() => flash.classList.remove("bump"), 150);
+      tg.innerHTML = out.map((o, i) => `<button type="button" class="tchip ${o.heard !== null ? (o.noise ? "noise" : "err") : ""} ${st.manual ? "manual" : ""}" data-i="${i}" ${st.manual ? "" : 'tabindex="-1"'}>${esc(chipLabel(o))}<small>${o.heard === null ? "correct" : esc(heardText(o.heard)) + (o.noise ? " · transcription mistake" : "")}</small></button>`).join("");
+    } else {
+      flash.innerHTML = `<div class="pic">screening finished</div><div class="word">Done</div><div class="prompt">${st.log.length} words · about ${fmtTime(st.log.length)} of child time. Press “Start again” to step through word by word.</div>`;
+      tg.innerHTML = "";
+    }
+    document.getElementById("nextBtn").disabled = st.done;
+    document.getElementById("autoBtn").disabled = st.done;
+    renderLog();
+    if (st.done) renderReport();
+  }
+  function fmtTime(n) { const s = Math.round(n * 4.5); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`; }
+  function renderLog() {
+    const el = document.getElementById("log");
+    if (!st.log.length) { el.innerHTML = `<h4>Session log <span class="timer">0 words · 0:00</span></h4><p class="empty">Each word appears here with what was heard. Rounds 2 and 3 show up only if they are needed.</p>`; return; }
+    let h = `<h4>Session log <span class="timer">${st.log.length} words · ~${fmtTime(st.log.length)}</span></h4><ol>`;
+    let lastR = 0;
+    st.log.forEach((e, i) => {
+      if (e.round !== lastR) { h += `<li class="sep">${ROUND_NAMES[e.round]}</li>`; lastR = e.round; }
+      const errs = e.out.filter((o) => o.heard !== null);
+      const ipa = heardIPA(e.item, e.out);
+      h += `<li><span class="r">${i + 1}</span><span>${esc(e.item.word)}${errs.length ? ` <span class="bad">${errs.map((o) => esc(S[o.sound].l + " " + POS[o.pos] + ": " + heardText(o.heard))).join(", ")}</span>${ipa ? ` <span class="ipa">→ /${esc(ipa)}/</span>` : ""}` : ` <span class="fine">✓ ${e.out.length} sound${e.out.length > 1 ? "s" : ""}</span>`}</span></li>`;
+    });
+    el.innerHTML = h + "</ol>";
+    el.scrollTop = el.scrollHeight;
+  }
+
+  // ---------- Report ----------
+  const PATTERNS = [
+    { id: "glide", test: (o) => ["r", "l"].includes(o.sound) && ["w", "j"].includes(o.heard) && o.pos !== "V", text: "Uses W in place of R or L", eg: "“wed” for red", term: "gliding" },
+    { id: "front", test: (o) => (o.sound === "k" && o.heard === "t") || (o.sound === "g" && o.heard === "d"), text: "Says T or D in place of K or G", eg: "“tup” for cup", term: "velar fronting" },
+    { id: "lisp", test: (o) => (o.sound === "s" && o.heard === "θ") || (o.sound === "z" && o.heard === "ð"), text: "Tongue peeks out on S and Z", eg: "“thun” for sun", term: "interdental lisp" },
+    { id: "stop", test: (o) => ["s", "z", "f", "v", "sh", "ch", "j", "th", "thv"].includes(o.sound) && ["t", "d", "p", "b"].includes(o.heard), text: "Stops the airflow on hissing sounds", eg: "“tun” for sun", term: "stopping" },
+    { id: "thf", test: (o) => (o.sound === "th" && o.heard === "f") || (o.sound === "thv" && o.heard === "v"), text: "Says F in place of TH", eg: "“fumb” for thumb", term: "TH fronting (also a normal dialect feature in some communities)" },
+    { id: "vr", test: (o) => o.pos === "V" && o.heard !== "" && o.heard !== "?", text: "R after a vowel sounds unclear", eg: "“bud” for bird", term: "vocalic /r/ distortion" },
+    { id: "cr", test: (o) => o.pos === "B" && o.heard === "", text: "Leaves out a sound in blends", eg: "“tee” for tree", term: "cluster reduction" },
+    { id: "fcd", test: (o) => o.pos === "F" && o.heard === "", text: "Drops sounds at the end of words", eg: "“do” for dog", term: "final consonant deletion" },
+  ];
+  function renderReport() {
+    document.getElementById("reportWrap").hidden = false;
+    const c = stats(), age = st.age;
+    const flagged = [], okSounds = [];
+    for (const s of ORDER) {
+      const cells = POS_ORDER.filter((p) => applicable(s, p)).map((p) => ({ p, k: s + "-" + p, st: status(c, s + "-" + p) }));
+      const errCells = cells.filter((x) => x.st === "error");
+      if (!errCells.length) { okSounds.push(s); continue; }
+      const onlyLate = errCells.every((x) => x.p === "B" || x.p === "V");
+      const mastery = S[s].age + (onlyLate ? 1 : 0);
+      flagged.push({ s, cells, errCells, level: age >= mastery ? "practice" : "developing", mastery });
+    }
+    const practice = flagged.filter((f) => f.level === "practice");
+    const allErrs = st.log.flatMap((e) => e.out.filter((o) => o.heard !== null && !o.noise).map((o) => ({ ...o, item: e.item })));
+    const pats = PATTERNS.map((p) => ({ ...p, n: allErrs.filter((o) => flagged.some((f) => f.s === o.sound) && p.test(o)).length })).filter((p) => p.n >= 2);
+    const referral = [];
+    if (age >= 4 && practice.some((f) => S[f.s].age <= 3)) referral.push("an early-developing sound (B, N, M, P, H, W or D) is hard");
+    if (practice.length >= 3) referral.push(`${practice.length} sounds need practice`);
+    if (age >= 4 && pats.some((p) => p.id === "fcd")) referral.push("ending sounds are being dropped");
+    if (age >= 8 && practice.length) referral.push("these sounds are usually mastered well before 8");
+
+    let h = `<div class="phone"><div><h3>${flagged.length ? `${practice.length ? practice.length + " sound" + (practice.length > 1 ? "s" : "") + " to practice" : "No sounds need practice yet"}` : "All sounds on track"}</h3><p class="sub">${practice.length && flagged.length > practice.length ? `${flagged.length - practice.length} still developing · ` : !practice.length && flagged.length ? `${flagged.length} still developing · ` : ""}${okSounds.length} on track · ${st.log.length} words in ~${fmtTime(st.log.length)}</p></div>`;
+    flagged.sort((a, b) => (a.level === b.level ? 0 : a.level === "practice" ? -1 : 1));
+    for (const f of flagged) {
+      const ex = f.errCells.flatMap((x) => (c[x.k] ? c[x.k].ex : [])).find((e) => e.item.seg && e.o.heard !== "?") || f.errCells.flatMap((x) => c[x.k].ex)[0];
+      const hs = [...new Set(f.errCells.flatMap((x) => c[x.k].ex.map((e) => e.o.heard)).filter((x) => x !== "?"))];
+      const PHRASE = { I: "at the start of words", M: "in the middle of words", F: "at the end of words", B: "in blends", V: "after a vowel" };
+      const PLAIN = { "θ": "th", "ð": "th", "ʃ": "sh", "ʧ": "ch", "ʤ": "j", "j": "y", "ŋ": "ng", "ɹ": "r" };
+      const whereList = f.errCells.map((x) => PHRASE[x.p] + ((x.p === "B" || x.p === "V") && c[x.k].ctxErr.size ? ` (${[...c[x.k].ctxErr].map((t) => t.toUpperCase()).join(", ")})` : ""));
+      const where = whereList.length > 1 ? whereList.slice(0, -1).join(", ") + " and " + whereList[whereList.length - 1] : whereList[0];
+      const what = hs.length ? hs.map((x) => (x === "" ? "left it out" : x === "ʊ" ? "the sound was unclear" : `said “${PLAIN[x] || x}” instead`)).join(", or ") : "the sound was off";
+      const eg = ex && ex.item.seg ? ` For example, <b>${esc(ex.item.word)}</b> came out as <span class="ipa">/${esc(heardIPA(ex.item, [ex.o]))}/</span>.` : "";
+      const startCell = f.errCells[0];
+      const start = `${S[f.s].l} → ${startCell.p === "B" ? "Blends" : startCell.p === "V" ? "Vowel R" : "Single sound"} → ${startCell.p === "B" || startCell.p === "V" ? ([...c[startCell.k].ctxErr].map((t) => t.toUpperCase()).join(", ") || "all") : "Start of words".replace("Start", POS[startCell.p][0].toUpperCase() + POS[startCell.p].slice(1))}`;
+      h += `<div class="scard ${f.level}"><header><b>${esc(S[f.s].l)} <span class="fine">as in ${esc(S[f.s].ex)}</span></b><span class="pill ${f.level}">${f.level === "practice" ? "Practice" : "Still developing"}</span></header>
+        <div class="dots">${f.cells.map((x) => `<span class="dot ${x.st === "error" ? "error" : x.st === "skip" ? "skip" : x.st === "none" ? "" : "ok"}">${POS[x.p]}${x.st === "skip" ? " · later" : ""}</span>`).join("")}</div>
+        <p>For ${esc(S[f.s].l)} ${esc(where)}, your child ${esc(what)}.${eg}</p>
+        <p class="fine">Most children say ${esc(S[f.s].l)}${f.errCells.every((x) => x.p === "B" || x.p === "V") ? " in these words" : ""} clearly by about ${f.mastery}. ${f.level === "practice" ? "Your child is " + age + ", so this is worth practicing." : "Your child is " + age + ", so this is common. Recheck in about 6 months."}${f.cells.some((x) => x.st === "skip") ? " Blends come after the single sound, so we didn't test them yet." : ""}</p>
+        <div class="start">Start practicing: <b>${esc(start)}</b></div></div>`;
+    }
+    if (pats.length) h += `<div class="patterns"><b style="font-family:var(--display)">Patterns we noticed</b>${pats.map((p) => `<div>${esc(p.text)}, e.g. ${esc(p.eg)}<br><small>Clinical term: ${esc(p.term)}</small></div>`).join("")}</div>`;
+    if (referral.length) h += `<div class="referral"><b>Consider talking to a speech-language pathologist</b>Because ${esc(referral.join("; "))}. This check is a screen, not a diagnosis.</div>`;
+    h += `<div><b style="font-family:var(--display)">On track</b><div class="oklist" style="margin-top:6px">${okSounds.map((s) => `<span class="pill ok">${esc(S[s].l)}</span>`).join("")}</div></div>`;
+    h += `<p class="fine">This is a quick screen based on ${st.log.length} words, not a diagnosis.</p></div>`;
+    document.getElementById("reportParent").innerHTML = h;
+
+    let t = `<div class="scroll"><table class="team"><thead><tr><th>Sound</th>${POS_ORDER.map((p) => `<th>${POS[p]}</th>`).join("")}</tr></thead><tbody>`;
+    for (const s of ORDER) {
+      t += `<tr><td><b>${esc(S[s].l)}</b></td>`;
+      for (const p of POS_ORDER) {
+        const k = s + "-" + p;
+        if (!applicable(s, p)) { t += `<td class="s-none">—</td>`; continue; }
+        const x = c[k], sv = status(c, k);
+        const ctx = x && x.ctxErr.size ? ` <span class="fine">(${[...x.ctxErr].join(",")})</span>` : "";
+        t += `<td class="s-${sv}">${sv === "skip" ? "skipped" : x ? `${x.e}/${x.a} ${sv}` : "·"}${ctx}</td>`;
+      }
+      t += "</tr>";
+    }
+    t += `</tbody></table></div><p class="fine">Cells show misses / tries. A spot is a problem with 2+ misses making up at least 40% of tries. "slip" is one miss that didn't repeat on double-check. Transcription mistakes (amber chips) are scored like real misses, which is what Round 2 protects against.</p>`;
+    document.getElementById("reportTeam").innerHTML = t;
+  }
+
+  // ---------- Events ----------
+  document.getElementById("targets").addEventListener("click", (e) => {
+    if (!st.manual || !st.current) return;
+    const b = e.target.closest(".tchip"); if (!b) return;
+    const o = st.current.out[+b.dataset.i];
+    o.heard = o.heard === null ? "?" : null;
+    render();
+  });
+  document.getElementById("nextBtn").addEventListener("click", () => { advance(); render(); });
+  document.getElementById("autoBtn").addEventListener("click", () => { let guard = 0; while (!st.done && guard++ < 200) advance(); render(); document.getElementById("reportWrap").scrollIntoView({ behavior: "smooth", block: "start" }); });
+  document.getElementById("startBtn").addEventListener("click", reset);
+  pSel.addEventListener("change", () => { aSel.value = PERSONAS[pSel.value].age; reset(); });
+  aSel.addEventListener("change", reset);
+  noiseEl.addEventListener("change", reset);
+  const tabP = document.getElementById("tabParent"), tabT = document.getElementById("tabTeam");
+  function tab(team) { tabP.classList.toggle("on", !team); tabT.classList.toggle("on", team); tabP.setAttribute("aria-selected", String(!team)); tabT.setAttribute("aria-selected", String(team)); document.getElementById("reportParent").hidden = team; document.getElementById("reportTeam").hidden = !team; }
+  tabP.addEventListener("click", () => tab(false)); tabT.addEventListener("click", () => tab(true));
+
+  aSel.value = PERSONAS[pSel.value].age;
+  reset();
+  // Show a finished example on load so the report is visible at rest.
+  let g = 0; while (!st.done && g++ < 200) advance(); render();
+})();
+
+</script>
+</body>
+</html>

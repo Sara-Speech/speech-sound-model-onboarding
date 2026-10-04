@@ -11,6 +11,8 @@ The site introduces:
 - an interactive word-level listening challenge; and
 - optional ASHA and external learning resources.
 
+`quick-sound-check.html` is a separate page proposing a 2–3 minute adaptive articulation screen for parents. It is written for review by speech-language pathologists. It covers the procedure, scoring and referral rules, word lists, an interactive simulation of the flow, and review questions SLPs can answer and copy into an email.
+
 The primer supports model development and student onboarding. It is not a clinical diagnostic tool and does not replace review by a speech-language pathologist.
 
 ## Run locally
@@ -28,6 +30,7 @@ Then visit `http://localhost:8000`.
 ```text
 .
 ├── index.html
+├── quick-sound-check.html
 └── audio/
     ├── base.mp3
     ├── d-reference.mp3
